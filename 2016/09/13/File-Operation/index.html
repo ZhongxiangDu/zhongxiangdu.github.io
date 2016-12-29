@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+  <link rel="icon" href="/favicon.ico">
+  
+  <title>Du&#39;s Blog | File Operation</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox-1.3.4.css">
+  <!--在这里倒入jquery 方便处理部分页面的jquery-->
+  <script src="https://cdn.staticfile.org/jquery/1.7/jquery.min.js" type="text/javascript" ></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="site-header navfixed-false">
+  <div class="container">
+      <h1><a href="/" title="Du&#39;s Blog"><span class="octicon octicon-bookmark"></span> Du&#39;s Blog</a></h1>
+      <nav class="site-header-nav" role="navigation">
+        
+              
+              <a href="/"  class=" site-header-nav-item hvr-underline-from-center" title="Home">Home</a>
+        
+              
+              <a href="/categories/"  class=" site-header-nav-item hvr-underline-from-center" title="Categories">Categories</a>
+        
+              
+              <a href="/open-source/"  class=" site-header-nav-item hvr-underline-from-center" title="Projects">Projects</a>
+        
+              
+              <a href="/about/"  class=" site-header-nav-item hvr-underline-from-center" title="About">About</a>
+        
+      </nav>
+  </div>
+</header>
+
+	
+<section class="collection-head geopattern" data-pattern-id="File Operation" >
+    <div class="container">
+        <div class="collection-title">
+            <h1 class="collection-header">
+                File Operation
+            </h1>
+            
+                <div class="collection-info">
+                    <span class="meta-info">
+                        <span class="octicon octicon-calendar"></span>
+                        <time datetime="2016-09-13T07:27:19.000Z" itemprop="datePublished">2016-09-13</time>
+                    </span>
+                    
+                        <span class="meta-info">
+                            <span class="octicon octicon-file-directory"></span>
+                            <a href='/categories/Operation-System/' title=''>Operation System</a>
+                        </span>
+                    
+                </div>
+            
+        </div>
+    </div>
+</section>
+	<section class="container">
+    <div class="columns">
+        <!-- -->
+        <div class="column three-fourths">
+            <article class="article-content markdown-body">
+                <p>This article mainly focuses on the create, read, write, close and delete operations on file in Linux 0.11. Here is only a brief view of the steps.<a id="more"></a> </p>
+<h2 id="Create-File"><a href="#Create-File" class="headerlink" title="Create File"></a>Create File</h2><p>In C Programing Language, by calling fopen() function we can open or create a file. The first parameter of fopen() is the path of the file. With this path, the system will start from the inode of the root or current directory. By looking into the i_zone in the inode, system will find the file inode or the inode of the file directory (when the file does not exist, which means we will create a file in this directory). Here we only talk about creating file.</p>
+<p>Firstly, we need to create a inode in the directory. We find an empty item on the inode list–inode_table[32]. The inode_table[32] denotes the currently being used files (in Linux 0.11, the whole system can only open st most 32 files at the same time). If there is no empty item in inode_table[32], the process will sleep to wait. Using the inode bitmap to find the unused inode number, if all the number have been used, return failed to create file. Binding the empty item in inode_table[32] with the inode and add file name and inode number to the i_zone of the directory inode. Note: here we have not write the file to the disk, we just write the file to the buffer block. Then the system bind the new inode with one unused item in filp[20] of the current process. In every process’s task structure, there is an array filp[20] denoting the files being opened by the process. In Linux each process can open at most 20 files at the same time. And the normal return value of fopen() is the index of the file in filp[20].</p>
+<h2 id="Read-Write-File"><a href="#Read-Write-File" class="headerlink" title="Read/Write File"></a>Read/Write File</h2><p>With the fd returned by the fopen(), we can find the inode of the file. And using the i_zone of the inode, we can find the block number of the disk. For reading operation, we directly read the data on the disk to the buffer block, and then copy this data to the buffer of the user process. For the writing operation, we write the data to the buffer block.</p>
+<h2 id="Close-File"><a href="#Close-File" class="headerlink" title="Close File"></a>Close File</h2><p>This is simple operation, when we calls the fclose() function. The system will unbind the file inode with the corresponding item of filp[20]. If there is still some asynchronous data about the file, the system will synchronize this data to the buffer block.</p>
+<h2 id="Delete-File"><a href="#Delete-File" class="headerlink" title="Delete File"></a>Delete File</h2><p>By using the system call unlnk(), we can delete a file. With the input path, we can find the file inode and directory inode. We set the inode number of the corresponding file in the i_zone of directory inode as 0. So we can not asscee the file by path. And then minus the i_nlink of the file inode by 1, and synchronize these changes to the buffer block. At this time, the file has not been deleted, because the file inode is still on the disk, and we has not changed the logical block bitmap has not been changed. Only when the i_nlink becomes 0, the file will be deleted.</p>
+<p>When the i_nlink becomes 0, the system will find the logical block number of the file data and make them available and then release the inode number from the inode bitmap.</p>
+<h2 id="Synchronization"><a href="#Synchronization" class="headerlink" title="Synchronization"></a>Synchronization</h2><p>All the operations we have talked about have not change the disk. All the changes are on the buffer block. The system will synchronize the buffer block with the disk in two conditions.</p>
+<ol>
+<li>Update process. When the system execute the shell process for the first time. The shell will start a update process, the process will synchronize the buffer block with the disk once in a while.</li>
+<li>When the system is running out of buffer (some buffer blocks have been written, but not been used right now), the system will synchronize all the buffer blocks with the disk.</li>
+</ol>
+<p>Synchronization has two steps:</p>
+<ol>
+<li>Write the data of inode_table[32] to buffer blocks;</li>
+<li>Write the data in all the buffer blocks to disk.</li>
+</ol>
+<p>In condition 1, the synchronization will be executed at order of 1,2. In condition 2, the synchronization will be executed at order of 2,1,2. Because step 1 will write data to the buffer block, but the system is running out of buffer at this time. So, it will clear the buffer first.</p>
+
+            </article>
+            
+                <div class="share">
+                    <!--开启分享-->
+<div class="share-component" data-disabled="google,twitter,facebook" data-description="This article mainly focuses..."></div>
+
+<script src="/js/share.min.js"></script>
+
+                </div>    
+            
+            
+                
+<div class="comments">
+	<div class="ds-thread" data-thread-key="File-Operation" data-title="File Operation" data-url="http://www.duzhongxiang.com/2016/09/13/File-Operation/"></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"Zhongxiang Du"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0]
+			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+	</script>
+</div>
+
+            
+        </div>
+        <div class="column one-fourth">
+            
+                
+                
+
+
+<h3>Post Directory</h3>
+
+<div id="post-directory-module">
+	<section class="post-directory">
+		<p><strong class="toc-title">Directory</strong></p>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-File"><span class="toc-text">Create File</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Read-Write-File"><span class="toc-text">Read/Write File</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Close-File"><span class="toc-text">Close File</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Delete-File"><span class="toc-text">Delete File</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Synchronization"><span class="toc-text">Synchronization</span></a></li></ol>
+	</section>
+</div>
+
+            
+        </div>
+    </div>
+</section>
+
+<footer class="container">
+    <div class="site-footer" role="contentinfo">
+        <div class="copyright left mobile-block">
+                © 2016
+                <span title="ZhongxiangDu">Zhongxiang Du</span>
+                <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+        </div>
+
+        <ul class="site-footer-links right mobile-hidden">
+            <li>
+                <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+            </li>
+        </ul>
+
+        <!-- a href="https://github.com/" target="_blank" aria-label="view source code">
+            <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+        </a-->
+
+        <ul class="site-footer-links mobile-hidden">
+            
+                  
+                  <li>
+                    <a href="/"  title="Home">Home</a>
+                  </li>
+            
+                  
+                  <li>
+                    <a href="/categories/"  title="Categories">Categories</a>
+                  </li>
+            
+                  
+                  <li>
+                    <a href="/open-source/"  title="Projects">Projects</a>
+                  </li>
+            
+                  
+                  <li>
+                    <a href="/about/"  title="About">About</a>
+                  </li>
+            
+            <li>
+                <a href="/atom.xml">
+                    <span class="octicon octicon-rss" style="color:orange;"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</footer>
+
+		<script src="/js/geopattern.js"></script>
+		<script src="/js/highlight.pack.js"></script>
+		<script src="/lib/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+
+		
+			<script src="/js/toc.js"></script>
+		
+
+		
+			<script src="/js/search.js"></script>
+
+			<script type="text/javascript">
+				$(function(){
+					var currentIndex = -1;
+					var search_path = "search.xml";
+					if (!search_path) search_path = "search.xml";
+					var path = "/" + search_path;
+					searchFunc(path, 'search', 'local-search-result');
+
+					$(document).delegate("#local-search-result>.search-result-list li","hover",function(){
+						var liNode = $("#local-search-result>.search-result-list li");
+						liNode.removeClass("hover");
+						currentIndex = $("#local-search-result>.search-result-list li").index($(this));
+						liNode.eq(currentIndex).addClass("hover");
+					})
+
+					$("#search-form").submit(function(){
+						return false;
+					})
+
+					$("#search").keydown(function(event){
+						var keyCode = event.keyCode;
+						var liNode = $("#local-search-result>.search-result-list li");
+						if(keyCode == 38 || keyCode == 40 || keyCode == 13){
+							liNode.removeClass("hover");
+							if(keyCode == 38){
+								if(currentIndex - 1 >= 0) currentIndex --;
+							}
+							if(keyCode == 40){
+								if(currentIndex + 1 < liNode.length) currentIndex ++;
+							}
+							if(keyCode == 13){
+								location.href = liNode.eq(currentIndex).find("a").attr("href");
+							}
+							liNode.eq(currentIndex).addClass("hover");
+							return false;
+						}else{
+							currentIndex = -1;
+						}
+					})
+				})
+			</script>
+		
+
+		<script src="/js/index.js"></script>
+
+		 <script src="/js/popular_repo.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end --> 
+
+	</body>
+</html>
