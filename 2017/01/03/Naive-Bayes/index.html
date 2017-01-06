@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>Naive Bayes</title>
+  <meta name="author" content="Zhongxiang Du">
+   <meta name="description" content="Naive Bayes is a classigier based on a strong assumption that all the features of a document are independent.">
+  
+
+  <meta property="og:title" content="Naive Bayes"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Du&#39;s Blog"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Du&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id='wx_pic' style='display:none;'><img src='/wx_share.png'/></div>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="/" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        Naive Bayes
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-01-04T00:45:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2017-01-03
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/Machine-Learning/">Machine Learning</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/Classifier/">Classifier</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>Naive Bayes is a classigier based on a strong assumption that all the features of a document are independent. <a id="more"></a> So for a document $X=\{x_1, x_2 … x_n\}$ with $n$ features we can have $P(X|C)=\prod_{i=1}^{n}P(x_i|C)$. Here $C$ denotes the category $X$ might belong to. Based on the Bayes theorem we can have $P(C|X) = \frac{P(X|C)P(C)}{P(X)} \propto P(X|C)P(C)$. And by chooseing the category $c$ that maximize $P(C|X)$ we can decide the category of $X$.</p>
+<p>Before we use the Naive Bayes, we need to have a dictionary $\{k_1, k_2 … k_m\}$ with $m$ keywords that all the features in the document should belong to at least one keyword. So document $X$ can be represented as $X = \{Z_1, Z_2 … Z_m\}$, $Z_i$ is the number of occurrences of $i$th keywords in $X$. So $P(X|C=c) = \prod_{i=1}^{m}P(k_i|C=c)^{Z_i}$.</p>
+<p>We use $\pi_c$ denotes $P(C=c)$ and $\theta_{ck}$ denotes $P(K=k|C=c)$. Given a set of training data $D = \{X_1, X_2 … X_N\}$ and their labels $\{Y_1, Y_2 … Y_N\}$. Then we can get: ($Z_{ij}$ is the number of occurrences of $j$th keywords in $X_i$)<br>$$P(D) = \prod_{i=1}^{N}P(X=X_i, C=Y_i) = \prod_{i=1}^{N}\pi_{Y_i}\prod_{j=1}^{m}\theta_{Y_iK_j}^{Z_{ij}}\\<br>\log P(D) = \sum_{i=1}^{N}[\log \pi_{Y_i}+\sum_{j=1}^{m}Z_{ij}\log \theta_{Y_iK_j}]$$<br>So, with the training data $D$, we can get the $\pi_c$ and $\theta_{ck}$ by maximize $P(D)$. Suppose there are $C$ categorise $\{c_1, c_2 … c_C \}$ and $\#_i$ is the number of document occurrences of $i$th category in $D$, $W_{ij}$ is the number of keyword occurrences of $j$th keywords in $i$th category of $D$.<br>$$(\pi_c^*, \theta_{ck}^*) = argmax\{\sum_{i=1}^{N}\log \pi_{Y_i}+\sum_{i=1}^{N}\sum_{j=1}^{m}Z_{ij}\log \theta_{Y_iK_j}\}\\<br>\sum_{i=1}^{N}\log \pi_{Y_i}=\sum_{i=1}^{C}\#_i\log \pi_{c_i}\\<br>\sum_{i=1}^{N}\sum_{j=1}^{m}Z_{ij}\log \theta_{Y_iK_j}=\sum_{i=1}^{C}\sum_{j=1}^{m}W_{ij}\log \theta_{c_iK_j}$$</p>
+<h4 id="Optimize-pi-c"><a href="#Optimize-pi-c" class="headerlink" title="Optimize $\pi_c$"></a>Optimize $\pi_c$</h4><p>As $\sum_{i=1}^{N}\sum_{j=1}^{m}Z_{ij}\log \theta_{Y_iK_j}$ is independent to $\pi_c$ and $\sum_{i=1}^{C}\pi_{c_i} = 1$. Applying the Lagrange multiplier we can get $L(\pi_c) = \sum_{i=1}^{C}\#_i\log \pi_{c_i} + \lambda (1-\sum_{i=1}^{C}\pi_{c_i})$. And the final $\pi_{c_i}$ is $\frac{\#_i}{N}$.</p>
+<h4 id="Optimize-theta-ck"><a href="#Optimize-theta-ck" class="headerlink" title="Optimize $\theta_{ck}$"></a>Optimize $\theta_{ck}$</h4><p>As $\sum_{i=1}^{N}\sum_{j=1}^{m}Z_{ij}\log \theta_{Y_iK_j}$ is independent to $\pi_c$ and $\sum_{j=1}^{m}\theta_{c_iK_j} = 1$. Applying the Lagrange multiplier we can get $L(\theta_{ck}) = \sum_{i=1}^{C}\sum_{j=1}^{m}W_{ij}\log \theta_{c_iK_j} + \sum_{i=1}^{C}\lambda_i(1-\sum_{j=1}^{m}\theta_{c_iK_j})$. And the final $\theta_{c_ik_j}$ is $\frac{W_{ij}}{\sum_{j=1}^{m}W_{ij}}$.</p>
+<h4 id="Apply"><a href="#Apply" class="headerlink" title="Apply"></a>Apply</h4><p>When we use the Naive Bayes, given an unlabled document $x$. $Z_k$ the number of $k$th keywords in $x$. it’s category $y$ is<br>$$argmax_{c}P(C=c|x)=argmax_{c}[\log\pi_c+\sum_{k=1}^{m}Z_k\log\theta_{ck}]$$</p>
+<h4 id="For-Two-Classification"><a href="#For-Two-Classification" class="headerlink" title="For Two Classification"></a>For Two Classification</h4><p>$$y_1 = \log\pi_1 + \sum_{k=1}^{m}Z_k\log\theta_{1k}\\<br>y_2 = \log\pi_2 + \sum_{k=1}^{m}Z_k\log\theta_{2k}\\<br>y_1-y_2 = \log \frac{\pi_1}{\pi_2} + \sum_{k=1}^{m}\log \frac{\theta_{1k}}{\theta_{2k}}Z_k=b+\sum_{k=1}^{m}A_kZ_k$$<br>Treat the document $x$ as a vector $[Z_1, Z_2 … Z_k]^T$ the two classes Naive Bayes can be treated as a linear classifier.</p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  
+
+
+<div id="disqus_thread"></div>
+<script>
+
+var disqus_config = function () {
+this.page.url = 'http://www.duzhongxiang.com/2017/01/03/Naive-Bayes/index.html';
+this.page.identifier = undefined;
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//www-duzhongxiang-com.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        © Zhongxiang Du  2015-2016
+    </div>
+
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+</body>
+</html>

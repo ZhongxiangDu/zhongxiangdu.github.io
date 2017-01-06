@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>SVM</title>
+  <meta name="author" content="Zhongxiang Du">
+   <meta name="description" content="SVM (Support vector machine) is a powerful classifier. We can use SVM to find a hyperplane to devide the sample space into two parts. The samples on o">
+  
+
+  <meta property="og:title" content="SVM"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Du&#39;s Blog"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Du&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id='wx_pic' style='display:none;'><img src='/wx_share.png'/></div>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="/" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        SVM
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-01-07T00:50:46.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2017-01-06
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/Machine-Learning/">Machine Learning</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/Classifier/">Classifier</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>SVM (Support vector machine) is a powerful classifier. We can use SVM to find a hyperplane to devide the sample space into two parts. The samples on one side are marked as positive(+) and the samples on the other side are marked as negative(-). The SVM aims to maximize the distance between $L+$ and $L-$.<br><img align="center" width="60%" height="60%" src="/images/SVMplane.svg"><br>For the positive samples ($y=+1$) we have $w^Tx+b\geq 1$ and for the negative samples ($y=-1$) we have $w^Tx+b\leq -1$. So for all the samples, $y(w^Tx+b)\geq 1$. The between $L+$ and $L-$ is $\frac{2}{\left\|w\right\|}$. Minimizing the distance equals to maximizing $\left\|w\right\|^2$. In some situations, it is hard for us to devide the positive and negative samples with a plane. In this case, we can introduce a soft margin factor $\xi$. So the object funtion becomes:($C$ is the punishment factor and $n$ is the number of samples)<br>$$min \frac{1}{2}\left\|w\right\|^2 + C\sum_{i=1}^{n}\xi_i\\<br>s.t.~~~~y_i(w^Tx_i+b)\geq 1-\xi_i\\<br>\xi_i \geq 0\\<br>i\in[1,2…n]$$<br>Applying lagrange multiplier we can have:<br>$$L(w,b,\xi,\alpha,\beta)=\frac{1}{2}\left\|w\right\|^2+\sum_{i=1}^{n}\alpha_i[1-\xi_i-y_i(w^Tx_i+b)]+C\sum_{i=1}^{n}\xi_i+\sum_{i=1}^{n}\beta_i(-\xi_i)\\<br>\frac{\partial}{\partial w}L(w,b,\xi,\alpha,\beta)=w-\sum_{i=1}^{n}\alpha_iy_ix_i=0~~~~\Rightarrow~~~~w=\sum_{i=1}^{n}\alpha_iy_ix_i\\<br>\frac{\partial}{\partial b}L(w,b,\xi,\alpha,\beta)=-\sum_{i=1}^{n}\alpha_iy_i=0\\<br>\frac{\partial}{\partial \xi_i}L(w,b,\xi,\alpha,\beta)=-\alpha_i-\beta_i+C=0,~~\because \beta_i\geq 0~~~~\Rightarrow~~~~0\leq\alpha_i\leq C\\<br>s.t.~~~~\xi_i\geq 0,~~~~\beta_i\geq 0\\<br>1-\xi_i-y_i(w^Tx_i+b)=0,~~~~\beta_i\xi_i=0$$<br>Applying the constrains to $L(w,b,\xi,\alpha,\beta)$ we can have:<br>$$L(w,b,\xi,\alpha,\beta)=\sum_{i=1}^{n}\alpha_i-\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_i\alpha_jy_iy_jx_ix_j\\<br>s.t.~~~~0\leq\alpha_i\leq C,~~~\beta_i\geq 0~~~\xi_i\geq 0\\<br>\alpha_i[1-\xi_i-y_i(w^Tx_i+b)]=0\\<br>\beta_i\xi_i=0\\<br>\sum_{i=1}^{n}\alpha_iy_i=0\\<br>w=\sum_{i=1}^{n}\alpha_iy_ix_i\\<br>C=\alpha_i+\beta_i$$<br>When $\alpha_i=0$, the sample $i$ is not the support vector and $y_i(w^Tx_i+b)\geq 1$.<br>When $\alpha_i \in (0,C)$, $\beta_i&gt;0$, $\xi_i=0$ so $y_i(w^Tx_i+b)=1$, the sample $i$ is the support vector, and it is what we need.<br>When $\alpha_i=C$, $\beta_i=0$, $\xi_i\geq 0$, so $y_i(w^Tx_i+b)\leq 1$, the sample $i$ is between the soft margin and the hyperplane.</p>
+<p>We can use SMO (Sequential Minimal Optimization) to optimize this problem. Select $\alpha_a$ and $\alpha_b$ set $\alpha_ay_a+\alpha_by_b+\sum_{i\neq a,i\neq b}\alpha_i^*y_i = 0$, we can get $\alpha_ay_a+\alpha_by_b = \alpha_a^*y_a+\alpha_b^*y_b = -\sum_{i\neq a,~ i\neq b}\alpha_i^*y_i = -\sum_{i\neq a,~ i\neq b}\alpha_iy_i=M$, here $\alpha_i^*$ is the value of $\alpha_i$ before optimalization.<br>$$L=\alpha_a+\alpha_b-\alpha_ay_ax_a\sum_{i\neq a,i\neq b}\alpha_iy_ix_i-\alpha_by_bx_b\sum_{i\neq a,i\neq b}\alpha_iy_ix_i-\alpha_ay_ax_a\alpha_by_bx_b\\<br>-\frac{1}{2}\alpha_a^2x_ax_a-\frac{1}{2}\alpha_b^2x_bx_b+const\\<br>=y_a(M-\alpha_by_b)+\alpha_b-(M-\alpha_by_b)x_a\sum_{i\neq a,i\neq b}\alpha_iy_ix_i-\alpha_by_bx_b\sum_{i\neq a,i\neq b}\alpha_iy_ix_i\\<br>-\alpha_b(M-\alpha_by_b)y_bx_ax_b-\frac{1}{2}(M-\alpha_by_b)^2x_ax_a-\frac{1}{2}\alpha_b^2x_bx_b+const$$<br>Set $x_ax_a=K_{aa}$, $x_ax_b=K_{ab}$, $x_bx_b=K_{bb}$ and $y_ay_b=S$. The items irrelevant to $\alpha_a$ and $\alpha_b$ are absorbed by $const$.<br>$$L=-S\alpha_b+\alpha_b+\alpha_by_bx_a\sum_{i\neq a,i\neq b}\alpha_iy_ix_i-\alpha_by_bx_b\sum_{i\neq a,i\neq b}\alpha_iy_ix_i-M\alpha_by_bx_ax_b\\<br>+\alpha_b^2x_ax_b+M\alpha_ay_bx_ax_a-\frac{1}{2}\alpha_b^2x_ax_a-\frac{1}{2}\alpha_b^2x_bx_b+const\\<br>=-\frac{1}{2}(K_{aa}+K_{bb}-2K_{ab})\alpha_b^2+(1-S)\alpha_b+(\alpha_by_bx_a-\alpha_by_bx_b)\sum_{i\neq a,i\neq b}\alpha_iy_ix_i\\<br>-M\alpha_by_bK_{ab}+M\alpha_by_bK_{aa}+const$$<br>Because $M=\alpha_a^*y_a+\alpha_b^*y_b$, $w=\sum_{i=1}^{n}\alpha_i^*y_ix_i=\alpha_a^*y_ax_a+\alpha_b^*y_bx_b+\sum_{i\neq a,i\neq b}\alpha_iy_ix_i$, there is $\sum_{i\neq a,i\neq b}\alpha_iy_ix_i=w-\alpha_a^*y_ax_a-\alpha_b^*y_bx_b$. Set $K_{aa}+K_{bb}-2K_{ab}=\eta$<br>$$\frac{\partial}{\partial \alpha_b}L=-\eta\alpha_b+(1-S)+(y_bx_a-y_bx_b)(w-\alpha_a^*y_ax_a-\alpha_b^*y_bx_b)\\<br>-(\alpha_a^*y_a+\alpha_b^*y_b)(y_bK_{ab}-y_bK_{aa})=0\\<br>-\eta\alpha_b+(1-S)+(y_ax_a-y_bx_b)w+\eta\alpha_b^*=0\\<br>\alpha_b = \alpha_b^*+\frac{(1-S)+(y_ax_a-y_bx_b)w}{\eta}\\<br>(1-S)+(y_ax_a-y_bx_b)w=y_b[y_b-y_a+(x_a-x_b)w]$$<br>Set $u_a=wx_a+b$ and $u_b=wx_b+b$, then $(x_a-x_b)w=u_a-u_b$<br>$$\alpha_b = \alpha_b^*+\frac{y_b(y_b-y_a+u_a-u_b)}{\eta}$$<br>As $\alpha_a \in [0,C]$, $M=y_a\alpha_a+y_b\alpha_b$, we need to restrict the value of $\alpha_b$.<br>When $y_a=1$ and $y_b=-1$, $M=\alpha_a^*-\alpha_b^*$, so $-\alpha_a^*+\alpha_b^*\leq \alpha_b \leq C-\alpha_a^*+\alpha_b^*$<br>When $y_a=-1$ and $y_b=1$, $M=-\alpha_a^*+\alpha_b^*$, so $\alpha_b^*-\alpha_a^*\leq \alpha_b \leq C+\alpha_b^*-\alpha_a^*$<br>When $y_a=1$ and $y_b=1$, $M=\alpha_a^*+\alpha_b^*$, so $\alpha_a^*+\alpha_b^*-C\leq \alpha_b \leq \alpha_a^*+\alpha_b^*$.<br>When $y_a=-1$ and $y_b=-1$, $M=-\alpha_a^*-\alpha_b^*$, so $\alpha_a^*+\alpha_b^*-C\leq \alpha_b \leq \alpha_a^*+\alpha_b^*$.<br>So when $y_a\neq y_b$, $Low=max(0,\alpha_b^*-\alpha_a^*)$, $High=min(C,C+\alpha_b^*-\alpha_a^*)$;<br>when $y_a= y_b$, $Low=max(0,\alpha_a^*+\alpha_b^*-C)$, $High=min(C,\alpha_a^*+\alpha_b^*)$. So<br>$$\alpha_b=\left\{\begin{matrix}<br>Low &amp; \alpha_b \leq Low\\<br>\alpha_b  &amp; Low&lt;\alpha_b &lt; High\\<br>High &amp; \alpha_b \geq High<br>\end{matrix}\right.$$</p>
+<p>After updating $\alpha_b$, update $\alpha_a$ by the relationship $\alpha_ay_a+\alpha_by_b = -\sum_{i\neq a,~ i\neq b}\alpha_i^*y_i$ and $w_{new} = w+y_a(\alpha_a-\alpha_a^*)x_a+y_b(\alpha_b-\alpha_b^*)x_b$<br>Then we need to update $b$. Before the updating, there is $b^* = u-wx = u-(\alpha_a^*y_ax_a+\alpha_b^*y_bx_b)x+Mx$. After the uodating, there is $y(w_{new}x+b)=1$ and $b=y-(\alpha_ay_ax_a+\alpha_by_bx_b)x+Mx$. So there is the relationship.<br>$$b=b^*+(y-u)+y_a(\alpha_a^*-\alpha_a)x_ax+y_b(\alpha_b^*-\alpha_b)x_bx\\<br>b_a=b^*+(y_a-u_a)+y_a(\alpha_a^*-\alpha_a)K_{aa}+y_b(\alpha_b^*-\alpha_b)K_{ab}\\<br>b_b=b^*+(y_b-u_b)+y_a(\alpha_a^*-\alpha_a)K_{ab}+y_b(\alpha_b^*-\alpha_b)K_{bb}$$<br>We will select the $b$ that satisfies the KKT conditions and not on the bound ($\alpha\in(0,C)$). When $\alpha=0$ or $\alpha=C$, $b$ is at the bound and we set $b_{new}=\frac{b_a+b_b}{2}$. So there is<br>$$b_{new}=\left\{\begin{matrix}<br>b_a &amp; \alpha_a \in(0,C) \\<br>b_b &amp; \alpha_b \in(0,C) \\<br>\frac{b_a+b_b}{2} &amp; otherwise<br>\end{matrix}\right.$$<br>In practice, we will choose the $\alpha$ which does not satisfies the KKT to optimalize.<br>When $y_iu_i &lt; 1$, the $\alpha_i$ should be $C$;<br>When $y_iu_i &gt; 1$, the $\alpha_i$ should be $0$;<br>When $y_iu_i = 1$, the $\alpha_i$ should be in $(0,C)$.</p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  
+
+
+<div id="disqus_thread"></div>
+<script>
+
+var disqus_config = function () {
+this.page.url = 'http://www.duzhongxiang.com/2017/01/06/SVM/index.html';
+this.page.identifier = undefined;
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//www-duzhongxiang-com.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        © Zhongxiang Du  2015-2016
+    </div>
+
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+</body>
+</html>

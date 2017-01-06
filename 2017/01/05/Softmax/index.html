@@ -7,11 +7,12 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="google-site-verification" content="" />
   
-  <title>404</title>
+  <title>Softmax</title>
   <meta name="author" content="Zhongxiang Du">
+   <meta name="description" content="Softmax is a multiclass classifier, it is also based on discrimated model and very similar to Logistic Regression. But here we use a softmax function ">
   
 
-  <meta property="og:title" content="404"/>
+  <meta property="og:title" content="Softmax"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:site_name" content="Du&#39;s Blog"/>
  <meta property="og:image" content="undefined"/>
@@ -38,14 +39,38 @@
     <div class="container">
       
 
-  <article class="standard 404">
+  <article class="standard post">
     <div class="title">
       
   
     <h1 class="page-title center">
-        404
+        Softmax
     </h1>
   
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-01-06T00:49:56.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2017-01-05
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/Machine-Learning/">Machine Learning</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/Classifier/">Classifier</a>
 
 
     </div>
@@ -53,13 +78,33 @@
     <div class="picture-container">
       
     </div>
-    
+    <p>Softmax is a multiclass classifier, it is also based on discrimated model and very similar to <a href="/2017/01/04/Logistic-Regression/" title="Logistic Regression">Logistic Regression</a>. But here we use a softmax function instand of a sigmoid function. With softmax function, the posterior probability of a sample $x$ and it label $c\in[1…K]$ ($K$ is the number of classifications) is shown below.<br>$$P(C=c|x)=\frac{e^{w_c^Tx}}{\sum_{i=1}^{K}e^{w_i^Tx}}$$<br>It is easy to find that in Logistic Regression $w$ is a vector but here it is a matrix. Given a set of training data $D=\{(x_1, c_1), (x_2, c_2) … (x_n, c_n)\}$, $x_i\in R^d$, $c_i\in[1…K]$, define $y_i\in R^K$.<br>$$y_{ik}=\left\{\begin{matrix}<br>1 &amp; if c_i = k\\<br>0 &amp; otherwise<br>\end{matrix}\right.$$<br>So we can have<br>$$P(D) = \prod_{i=1}^{n}P(c_i|x_i)\\<br>\log P(D) = \sum_{i=1}^{n}\log P(c_i|x_i)=\sum_{i=1}^{n}\log \prod_{k=1}^{K}P(c_k|x_i)^{y_{ik}}=\sum_{i=1}^{n}\sum_{k=1}^{K}y_{ik}\log P(c_k|x_i)$$<br>Define $L(w) = -\log P(D)$, so $w^*=argmax_w P(D) = argmin_w L(w)$. We can use the similar optimalization method as we have used in <a href="/2017/01/04/Logistic-Regression/" title="Logistic Regression">Logistic Regression</a> to optimalize $w$ here.</p>
+
 
   </article>
   </script>
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
   </script>
+  
 
+
+<div id="disqus_thread"></div>
+<script>
+
+var disqus_config = function () {
+this.page.url = 'http://www.duzhongxiang.com/2017/01/05/Softmax/index.html';
+this.page.identifier = undefined;
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//www-duzhongxiang-com.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
 
 
 

@@ -7,11 +7,12 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="google-site-verification" content="" />
   
-  <title>404</title>
+  <title>Bayes Estimation</title>
   <meta name="author" content="Zhongxiang Du">
+   <meta name="description" content="Different to MLE, Bayes Estimation treats the parameter $\theta$ as a random variable and estimate the $\theta$ through it’s posterior density.">
   
 
-  <meta property="og:title" content="404"/>
+  <meta property="og:title" content="Bayes Estimation"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:site_name" content="Du&#39;s Blog"/>
  <meta property="og:image" content="undefined"/>
@@ -38,14 +39,38 @@
     <div class="container">
       
 
-  <article class="standard 404">
+  <article class="standard post">
     <div class="title">
       
   
     <h1 class="page-title center">
-        404
+        Bayes Estimation
     </h1>
   
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-01-03T00:38:16.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2017-01-02
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/Machine-Learning/">Machine Learning</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/Estimation/">Estimation</a>
 
 
     </div>
@@ -53,13 +78,35 @@
     <div class="picture-container">
       
     </div>
-    
+    <p>Different to <a href="/2017/01/01/Maximum-Likehood-Estimation/" title="MLE">MLE</a>, Bayes Estimation treats the parameter $\theta$ as a random variable and estimate the $\theta$ through it’s posterior density.<a id="more"></a> $X$ is the data we observed $P(X|\theta)$ is the density function of $X$ with parameter $\theta$ and $\pi(\theta)$ is the prior density function of $\theta$, then we can have<br>$$ P(\theta|X) = \frac{P(X|\theta)\pi(\theta)}{P(X)} \propto P(X|\theta)\pi(\theta) $$<br>Usually we assume the $\pi(\theta)$ as a gaussian distribution. And with Bayes Estimation, we can get different extimation methods.</p>
+<h4 id="Point-Estimation"><a href="#Point-Estimation" class="headerlink" title="Point Estimation"></a>Point Estimation</h4><p>$$\hat{\theta} = E[P(\theta|X)] = \int P(\theta|X)\pi(\theta) \mathrm{d}\theta$$</p>
+<h4 id="MAP-Maximum-a-Posterior"><a href="#MAP-Maximum-a-Posterior" class="headerlink" title="MAP (Maximum a Posterior)"></a>MAP (Maximum a Posterior)</h4><p>$$\hat{\theta} = argmax_{\theta}P(\theta|X) = argmax_{\theta}P(X|\theta)\pi(\theta)$$</p>
+
 
   </article>
   </script>
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
   </script>
+  
 
+
+<div id="disqus_thread"></div>
+<script>
+
+var disqus_config = function () {
+this.page.url = 'http://www.duzhongxiang.com/2017/01/02/Bayes-Estimation/index.html';
+this.page.identifier = undefined;
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//www-duzhongxiang-com.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
 
 
 

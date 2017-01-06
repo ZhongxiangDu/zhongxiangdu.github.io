@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>Maximum Likehood Estimation</title>
+  <meta name="author" content="Zhongxiang Du">
+   <meta name="description" content="Given $N$ independent and identically distributed (i.i.d) variables $X_1, X_2 …, X_N$ from a distribution $D$ with a parameter $\theta$, we can use a function $f$ to estimate $\theta$.">
+  
+
+  <meta property="og:title" content="Maximum Likehood Estimation"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Du&#39;s Blog"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Du&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id='wx_pic' style='display:none;'><img src='/wx_share.png'/></div>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="/" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        Maximum Likehood Estimation
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-01-02T00:38:16.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2017-01-01
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/Machine-Learning/">Machine Learning</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/Estimation/">Estimation</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>Given $N$ independent and identically distributed (i.i.d) variables $X_1, X_2 …, X_N$ from a distribution $D$ with a parameter $\theta$, we can use a function $f$ to estimate $\theta$. <a id="more"></a></p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>The joint density function is $f(X_1, X_2 … X_N |\theta) = f(X_1|\theta)f(X_2|\theta)…f(X_N|\theta)$. We need to find a $\theta$ to maximum the logistic joint function $L_N(\theta)= \log f(X_1, X_2 … X_N |\theta) = \frac{1}{N}\sum_{i=1}^{N}\log f(X_i|\theta)$. </p>
+<p>Assume $\hat{\theta}$ is the value of $\theta$ that maximize $L_N(\theta)$ and $\theta_0$ is the ture value of the parameter $\theta$ there are:</p>
+<ol>
+<li>when $N\rightarrow \infty $, $\hat{\theta}=\theta_0$</li>
+<li>$\sqrt{N}(\hat{\theta}-\theta_0) \sim N(0, I(\theta_0)^{-1})$, $I(\theta_0)$ is the fisher information, $I(\theta_0) = E_{\theta_0}[(\frac{\partial}{\partial\theta}\log f(X|\theta))^2]$.</li>
+</ol>
+<h3 id="Proof"><a href="#Proof" class="headerlink" title="Proof"></a>Proof</h3><h4 id="1-when-N-rightarrow-infty-hat-theta-theta-0"><a href="#1-when-N-rightarrow-infty-hat-theta-theta-0" class="headerlink" title="1. when $N\rightarrow \infty$, $\hat{\theta}=\theta_0$"></a>1. when $N\rightarrow \infty$, $\hat{\theta}=\theta_0$</h4><p>Define $l(X|\theta) = \log f(X|\theta)$ and $L(\theta) = E_{\theta_0}(l(X|\theta))$. So we can have $L(\theta) =\int (\log f(X|\theta))f(X|\theta_0)\mathrm{d}X$. Based on LLN (Law of Large Number), when $N\rightarrow \infty $, $L_N(\theta)\rightarrow E_{\theta_0}(l(X|\theta))=L(\theta)$. So we can maximize $E_{\theta_0}(l(X|\theta))$ by maximizing $L_N(\theta)$.</p>
+<p>Then we need to proof that $\theta_0$ is the value that maximizes $E_{\theta_0}(l(X|\theta))$, in other words for any $\theta$, $L(\theta) \leq L(\theta_0)$. Proof: (Here we have taken the advantage of the mathematical property that $\log t \leq t-1$)</p>
+<p>$$L(\theta)-L(\theta_0) = E_{\theta_0}(l(X|\theta)-l(X|\theta_0))\\<br> = E_{\theta_0}(\log f(X|\theta)-\log f(X|\theta_0))\\<br> = E_{\theta_0}\log \frac{f(X|\theta)}{f(X|\theta_0)}\\<br>\leq E_{\theta_0}(\frac{f(X|\theta)}{f(X|\theta_0)}-1)\\<br> = \int [f(X|\theta)-f(X|\theta_0)]\mathrm{d}X\\<br> = 1-1 = 0$$</p>
+<h4 id="2-sqrt-N-hat-theta-theta-0-sim-N-0-I-theta-0-1"><a href="#2-sqrt-N-hat-theta-theta-0-sim-N-0-I-theta-0-1" class="headerlink" title="2. $\sqrt{N}(\hat{\theta}-\theta_0) \sim N(0, I(\theta_0)^{-1})$"></a>2. $\sqrt{N}(\hat{\theta}-\theta_0) \sim N(0, I(\theta_0)^{-1})$</h4><p>Based on mean value theorem and taylor theorem, there is a $\theta \in [\hat{\theta}, \theta_0]$ satisfying $L’_N(\hat{\theta}) = L’_N(\theta_0) + L’’_N(\theta_0)(\hat{\theta}-\theta_0) + \frac{1}{2}L^{(3)}_N(\theta)(\hat{\theta}-\theta_0)^2$ as $0 = L’_N(\hat{\theta})$ and $\frac{1}{2}L^{(3)}_N(\theta)(\hat{\theta}-\theta_0)^2$ is negligible, then we can have $\hat{\theta}-\theta_0 = \frac{-L’_N(\theta_0)}{L’’_N(\theta)}$ and $\sqrt{N}(\hat{\theta}-\theta_0) = \frac{-\sqrt{N}L’_N(\theta_0)}{L’’_N(\theta_0)}$</p>
+<p>$$E_{\theta_0}(l’(X|\theta)) = \int [\frac{\partial }{\partial\theta}\log f(X|\theta)]|_{\theta = \theta_0}f(X|\theta_0)\mathrm{d}X\\<br> = \int \frac{\partial }{\partial\theta}f(X|\theta)|_{\theta = \theta_0}\mathrm{d}X\\<br> = \frac{\partial }{\partial\theta}\int f(X|\theta)\mathrm{d}X|_{\theta = \theta_0} = 0$$</p>
+<p>$$\sqrt{N}L’_N(\theta_0) = \sqrt{N}[\frac{1}{N}\sum_{i=1}^Nl’(X_i|\theta_0)]\\<br> = \sqrt{N}[\frac{1}{N}\sum_{i=1}^Nl’(X_i|\theta_0) -  0]\\<br> = \sqrt{N}[\frac{1}{N}\sum_{i=1}^Nl’(X_i|\theta_0) -  E_{\theta_0}(l’(X|\theta_0)]$$</p>
+<p>Based on CLT (Central Limit Theorem), we can have $\sqrt{N}L’_N(\theta_0) \sim N(0, D_{\theta_0}(l’(X|\theta))$ and $\sqrt{N}(\hat{\theta}-\theta_0) \sim N(0, \frac{D_{\theta_0}(l’(X|\theta)}{[L’’_N(\theta_0)]^2})$.</p>
+<p>$L’’_N(\theta_0) = \sum_{i=1}^{N}\frac{\partial^2}{\partial\theta^2}\log f(X_i|\theta)|_{\theta=\theta_0}$ based on LLN when $N\rightarrow \infty$, we can have:</p>
+<p>$$L’’_N(\theta_0) = E_{\theta_0}(l’’(X|\theta))\\<br> = \int [-\frac{[f’(X|\theta_0)]^2}{f^2(X|\theta_0)} + \frac{f’’(X|\theta_0)}{f(X|\theta_0)}]f(X|\theta_0)\mathrm{d}X\\<br> = -\int [\frac{[f’(X|\theta_0)]^2}{f^2(X|\theta_0)}]f(X|\theta_0)\mathrm{d}X + \int f’’(X|\theta_0)\mathrm{d}X\\<br>= -E_{\theta_0}[(l’(X|\theta))^2]+0 = -I(\theta_0)$$</p>
+<p>$$D_{\theta_0}(l’(X|\theta) = E_{\theta_0}[l’(X|\theta)]^2 - E_{\theta_0}^2[l’(X|\theta)] = I(\theta_0)$$</p>
+<p>So we can have $\sqrt{N}(\hat{\theta}-\theta_0) \sim N(0, I(\theta_0)^{-1})$.</p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  
+
+
+<div id="disqus_thread"></div>
+<script>
+
+var disqus_config = function () {
+this.page.url = 'http://www.duzhongxiang.com/2017/01/01/Maximum-Likehood-Estimation/index.html';
+this.page.identifier = undefined;
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//www-duzhongxiang-com.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        © Zhongxiang Du  2015-2016
+    </div>
+
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+</body>
+</html>

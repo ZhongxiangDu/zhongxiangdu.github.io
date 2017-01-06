@@ -1,0 +1,191 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>Logistic Regression</title>
+  <meta name="author" content="Zhongxiang Du">
+   <meta name="description" content="Logistic Regression is a kind of classifier. Unlike Naive Bayes, it is based on the discrimated model and use a sigmoid function $\sigma(x)=\frac{1}{1">
+  
+
+  <meta property="og:title" content="Logistic Regression"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Du&#39;s Blog"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Du&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id='wx_pic' style='display:none;'><img src='/wx_share.png'/></div>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="/" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        Logistic Regression
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-01-05T00:47:58.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2017-01-04
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/Machine-Learning/">Machine Learning</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/Classifier/">Classifier</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>Logistic Regression is a kind of classifier. Unlike <a href="/2017/01/03/Naive-Bayes/" title="Naive Bayes">Naive Bayes</a>, it is based on the discrimated model and use a sigmoid function $\sigma(x)=\frac{1}{1+e^{-x}}$ to deal with two classification problem. For a sample $x\in R^d$, it’s label is $y\in\{0, 1\}$, and $P(y|x,w)=\sigma(w^Tx)^y(1-\sigma(w^Tx))^{1-y}$ is the probability that $x$’s label is $y$, $w\in R^d$ is the parameter of this model.</p>
+<p>Given a set of labeled data $D={(x_1, y_1), (x_2, y_2) … (x_n, y_n)}$ and $x_i\in R^d$, $y_i\in\{0,1\}$. So, $P(D|w)=\prod_{i=1}^{n}P(y_i|x_i,w)=\prod_{i=1}^{n}\alpha_i^{y_i}(1-\alpha_i)^{1-y_i}$, here $\alpha_i=\frac{1}{1+e^{-w^Tx_i}}$. Define $L(w)=-\log P(D|w) = \sum_{i=1}^{n}y_i\log\alpha_i+\sum_{i=1}^{n}(1-y_i)\log(1-\alpha_i)$ and Based on the <a href="/2017/01/01/Maximum-Likehood-Estimation/" title="MLE">MLE</a> $w^*=argmax_w\log P(D|w)=argmin_wL(w)$. We will use Newton method to solve this problem.<br>$$\frac{\partial}{\partial w_j}\log \alpha_i= \frac{\partial}{\partial w_j}\{-\log(1+e^{-w^Tx_i})\}=\frac{x_{ij}e^{-w^Tx_i}}{1+e^{-w^Tx_i}}\\<br>\frac{\partial}{\partial w_j}\log(1-\alpha_i)=\frac{\partial}{\partial w_j}\log\frac{e^{-w^Tx_i}}{1+e^{-w^Tx_i}}=\frac{\partial}{\partial w_j}\{\log e^{-w^Tx_i}-\log(1+e^{-w^Tx_i})\}\\<br>=-x_{ij}+\frac{x_{ij}e^{-w^Tx_i}}{1+e^{-w^Tx_i}}=-\frac{x_{ij}}{1+e^{-w^Tx_i}}\\<br>\frac{\partial}{\partial w_j}L(w)=-\sum_{i=1}^{n}\{y_i\frac{x_{ij}e^{-w^Tx_i}}{1+e^{-w^Tx_i}}+(1-y_i)\frac{-x_{ij}}{1+e^{-w^Tx_i}}\}=-\sum_{i=1}^{n}\{x_{ij}\frac{y_i(1+e^{-w^Tx_i})-1}{1+e^{-w^Tx_i}}\}\\<br>=-\sum_{i=1}^{n}x_{ij}(y_i-\alpha_i)=\sum_{i=1}^{n}x_{ij}(\alpha_i-y_i)$$<br>Define matrix $A=[x_{ij}]$, $B=diag(\alpha_i(1-\alpha_i))$, $i\in[1…n]$, $j\in[1…d]$. So, we can have</p>
+<p>$$\begin{matrix}A=\begin{bmatrix}<br>x_{11} &amp; …  &amp; x_{1d}\\<br>\vdots &amp; \ddots &amp;\vdots \\<br>x_{n1} &amp; … &amp; x_{nd}\end{bmatrix}&amp;<br>B=\begin{bmatrix}<br>\alpha_1(1-\alpha_1) &amp; …  &amp; 0\\<br>\vdots &amp; \ddots &amp;\vdots \\<br>0 &amp; … &amp; \alpha_n(1-\alpha_n)\end{bmatrix}\end{matrix}$$</p>
+<p>And $\triangledown_wL(w)=A^T(\alpha-Y)$, $\alpha=[\alpha_1 … \alpha_n]^T$ and $Y=[y_1 … y_n]^T$<br>$$\frac{\partial^2}{\partial w_j \partial w_k}L(w)=\frac{\partial}{\partial w_k}\sum_{i=1}^{n}x_{ij}(\alpha_i-y_i)=\sum_{i=1}^{n}x_{ij}\frac{\partial}{\partial w_k}\alpha_i\\<br>\frac{\partial}{\partial w_k}\alpha_i = \frac{\partial}{\partial w_k}\frac{1}{1+e^{-w^Tx_i}}=\frac{x_{ik}e^{-w^Tx_i}}{(1+e^{-w^Tx_i})^2}=x_{ik}\alpha_i(1-\alpha_i)\\<br>\frac{\partial^2}{\partial w_j \partial w_k}L(w)=\sum_{i=1}^{n}x_{ij}x_{ik}\alpha_i(1-\alpha_i)=A^TBA$$<br>As $\triangledown_w^2L(w)=A^TBA=A^TB^{\frac{1}{2}}B^{\frac{1}{2}}A=(B^{\frac{1}{2}}A)^T(B^{\frac{1}{2}}A)$, the $\triangledown_w^2L(w)$ is positive definite and it should have a local minimum value. We can get the $w$ by iteration.</p>
+<p>$$w_{new} = w_{old} - (\triangledown_w^2L(w))^{-1}\triangledown_wL(w)$$ </p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  
+
+
+<div id="disqus_thread"></div>
+<script>
+
+var disqus_config = function () {
+this.page.url = 'http://www.duzhongxiang.com/2017/01/04/Logistic-Regression/index.html';
+this.page.identifier = undefined;
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//www-duzhongxiang-com.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        © Zhongxiang Du  2015-2016
+    </div>
+
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+</body>
+</html>
