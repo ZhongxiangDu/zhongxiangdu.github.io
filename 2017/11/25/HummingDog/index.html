@@ -1,208 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-  
-  <title>HummingDog 3D Face Painter | Du&#39;s Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1 Project IntroductionThis project is about building a system to translate a hand sketched human face into a 3D face model. The main problem about this system is Building a model to learn the outline">
-<meta property="og:type" content="article">
-<meta property="og:title" content="HummingDog 3D Face Painter">
-<meta property="og:url" content="http://www.duzhongxiang.com/2017/11/25/HummingDog/index.html">
-<meta property="og:site_name" content="Du's Blog">
-<meta property="og:description" content="1 Project IntroductionThis project is about building a system to translate a hand sketched human face into a 3D face model. The main problem about this system is Building a model to learn the outline">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/pix2pix.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/discriminator.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/canny/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/canny/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/canny/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/canny/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/canny/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000025.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/canny/000025.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000025.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/pix2pix/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/pix2pix/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/pix2pix/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/pix2pix/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/pix2pix/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000025.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000025.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/pix2pix/000025.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/vrn.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dreal/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/pix2pix/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dfake/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dreal/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/pix2pix/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dfake/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dreal/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/pix2pix/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dfake/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dreal/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/pix2pix/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dfake/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dreal/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/pix2pix/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dfake/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/workflow.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/d/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dd/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/d/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dd/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/d/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dd/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/d/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dd/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/d/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dd/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000025.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/d/000025.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dd/000025.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dd/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/rgb_fake/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/rgbd/000002.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dd/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/rgb_fake/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/rgbd/000009.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dd/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/rgb_fake/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/rgbd/000010.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dd/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/rgb_fake/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/rgbd/000012.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/sobel/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/image/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/3dd/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/rgb_fake/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/rgbd/000017.jpg">
-<meta property="og:image" content="http://www.duzhongxiang.com/images/framework.jpg">
-<meta property="og:updated_time" content="2017-11-28T01:31:51.753Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HummingDog 3D Face Painter">
-<meta name="twitter:description" content="1 Project IntroductionThis project is about building a system to translate a hand sketched human face into a 3D face model. The main problem about this system is Building a model to learn the outline">
-<meta name="twitter:image" content="http://www.duzhongxiang.com/images/pix2pix.jpg">
-  
-    <link rel="alternate" href="/atom.xml" title="Du&#39;s Blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-  
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
+  <link rel="icon" href="/favicon.ico">
+  
+  <title>Du&#39;s Blog | HummingDog 3D Face Painter</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox-1.3.4.css">
+  <!--在这里倒入jquery 方便处理部分页面的jquery-->
+  <script src="https://cdn.staticfile.org/jquery/1.7/jquery.min.js" type="text/javascript" ></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Du&#39;s Blog</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="site-header navfixed-false">
+  <div class="container">
+      <h1><a href="/" title="Du&#39;s Blog"><span class="octicon octicon-bookmark"></span> Du&#39;s Blog</a></h1>
+      <nav class="site-header-nav" role="navigation">
         
-          <a class="main-nav-link" href="/">Home</a>
+              
+              <a href="/"  class=" site-header-nav-item hvr-underline-from-center" title="Home">Home</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+              
+              <a href="/categories/"  class=" site-header-nav-item hvr-underline-from-center" title="Categories">Categories</a>
+        
+              
+              <a href="/open-source/"  class=" site-header-nav-item hvr-underline-from-center" title="Projects">Projects</a>
+        
+              
+              <a href="/about/"  class=" site-header-nav-item hvr-underline-from-center" title="About">About</a>
         
       </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.duzhongxiang.com"></form>
-      </div>
-    </div>
   </div>
 </header>
-      <div class="outer">
-        <section id="main"><article id="post-HummingDog" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/11/25/HummingDog/" class="article-date">
-  <time datetime="2017-11-25T18:04:19.000Z" itemprop="datePublished">2017-11-25</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Machine-Learning/">Machine Learning</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      HummingDog 3D Face Painter
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-Project-Introduction"><a href="#1-Project-Introduction" class="headerlink" title="1 Project Introduction"></a>1 Project Introduction</h2><p>This project is about building a system to translate a hand sketched human face into a 3D face model. The main problem about this system is Building a model to learn the outline pattern of human face and applying GAN to the generated face more real. <a id="more"></a><br>We have tried two methods in this project. One is a two step model, generating the RGB face and 3D face in two steps. The other is an End-to-End Pix2RGBD model, which tries to combine the two models together and generate 3D model directly from the hand skecthed image.</p>
+	
+<section class="collection-head geopattern" data-pattern-id="HummingDog 3D Face Painter" >
+    <div class="container">
+        <div class="collection-title">
+            <h1 class="collection-header">
+                HummingDog 3D Face Painter
+            </h1>
+            
+                <div class="collection-info">
+                    <span class="meta-info">
+                        <span class="octicon octicon-calendar"></span>
+                        <time datetime="2017-11-25T18:04:19.000Z" itemprop="datePublished">2017-11-25</time>
+                    </span>
+                    
+                        <span class="meta-info">
+                            <span class="octicon octicon-file-directory"></span>
+                            <a href='/categories/Machine-Learning/' title=''>Machine Learning</a>
+                        </span>
+                    
+                </div>
+            
+        </div>
+    </div>
+</section>
+	<section class="container">
+    <div class="columns">
+        <!-- -->
+        <div class="column two-thirds">
+            <article class="article-content markdown-body">
+                <h2 id="1-Project-Introduction"><a href="#1-Project-Introduction" class="headerlink" title="1 Project Introduction"></a>1 Project Introduction</h2><p>This project is about building a system to translate a hand sketched human face into a 3D face model. The main problem about this system is Building a model to learn the outline pattern of human face and applying GAN to the generated face more real.<a id="more"></a><br>We have tried two methods in this project. One is a two step model, generating the RGB face and 3D face in two steps. The other is an End-to-End Pix2RGBD model, which tries to combine the two models together and generate 3D model directly from the hand skecthed image.</p>
 <h2 id="2-Two-Step-Model"><a href="#2-Two-Step-Model" class="headerlink" title="2 Two Step Model"></a>2 Two Step Model</h2><p>The Two Step Model is a concatenation of two models. They are Pix2Pix Model and 3D Generation Model.</p>
 <h3 id="2-1-Pix2Pix-Model-Introduction"><a href="#2-1-Pix2Pix-Model-Introduction" class="headerlink" title="2.1 Pix2Pix Model Introduction"></a>2.1 Pix2Pix Model Introduction</h3><p>This model was published in [1], which aims to translate an image into another image. In this project, we take advantage of this model to translate our hand sketched human face into a colored RGB human face.</p>
-<h4 id="2-1-1-Network-Structure-and-Loss-Function"><a href="#2-1-1-Network-Structure-and-Loss-Function" class="headerlink" title="2.1.1 Network Structure and Loss Function"></a>2.1.1 Network Structure and Loss Function</h4><p>We apply a similar network structure descibled in [1], but we have changed some hyper parameters to make this model more suitable for our system. The GAN is applied in this model. The structure of generator part is shown below.<br><img align="center" src="/images/pix2pix.jpg"><br>The input is an image with size 192*192, which only contains two kind of values (0, 255). The generator will generate a 192*192 colored image with three channels. The structure of the discriminator is shown below. The 192*192*4 input tensor is a concatenation of a hand skectched image and its corresponding RGB image. The discriminator will decide whether the RGB image is real or fake.<br><img align="center" src="/images/discriminator.jpg" width="50%" height="50%"><br>The loss function of our model is<br>$$L_{GAN}=\mathbb{E}_{y\sim p_{data}(y)}[\log D(y)]+\mathbb{E}_{x\sim p_{data}(x),z\sim p_{z}(z)}[1 - \log D(G(x))]\\<br>L= arg~\underset{G}{min}~\underset{D}{max}~L_{GAN} +\lambda \mathbb{E} \left \| y-G(x)) \right \|_1$$<br>x is the input hand sketched image; y is the ground truth; D and G are the generator and discriminator.</p>
+<h4 id="2-1-1-Network-Structure-and-Loss-Function"><a href="#2-1-1-Network-Structure-and-Loss-Function" class="headerlink" title="2.1.1 Network Structure and Loss Function"></a>2.1.1 Network Structure and Loss Function</h4><p>We apply a similar network structure descibled in [1], but we have changed some hyper parameters to make this model more suitable for our system. The GAN is applied in this model. The structure of generator part is shown below. </p>
+<center><img align="center" src="/images/pix2pix.jpg"></center>
+
+<p>The input is an image with size 192*192, which only contains two kind of values (0, 255). The generator will generate a 192*192 colored image with three channels. The structure of the discriminator is shown below. The 192*192*4 input tensor is a concatenation of a hand skectched image and its corresponding RGB image. The discriminator will decide whether the RGB image is real or fake.</p>
+<center><img align="center" src="/images/discriminator.jpg" width="50%" height="50%"></center>
+
+<p>The loss function of our model is<br>$$L_{GAN}=\mathbb{E}_{y\sim p_{data}(y)}[\log D(y)]+\mathbb{E}_{x\sim p_{data}(x),z\sim p_{z}(z)}[1 - \log D(G(x))]\\<br>L= arg~\underset{G}{min}~\underset{D}{max}~L_{GAN} +\lambda \mathbb{E} \left \| y-G(x)) \right \|_1$$<br>x is the input hand sketched image; y is the ground truth; D and G are the generator and discriminator.</p>
 <h4 id="2-1-2-Training-Data"><a href="#2-1-2-Training-Data" class="headerlink" title="2.1.2 Training Data"></a>2.1.2 Training Data</h4><p>In this project, we use the data from CelebA[3]. It contains 202,599 aligned face images. Since limited calculation resources, we only select the first 10,000 images. Buy applying the Canny and Sobel edge detection algorithm to generate the sketched images. So we can have a dataset with 20,000 pairs of training images. Here are some samples from our dataset. </p>
 <table>
 <thead>
@@ -299,37 +172,37 @@
 <tr>
 <td style="text-align:center"><img align="center" src="/images/sobel/000002.jpg"></td>
 <td style="text-align:center"><img align="center" src="/images/image/000002.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dreal/000002.jpg" width="50%" height="50%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dreal/000002.jpg"></td>
 <td style="text-align:center"><img align="center" src="/images/pix2pix/000002.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dfake/000002.jpg" width="50%" height="50%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dfake/000002.jpg"></td>
 </tr>
 <tr>
 <td style="text-align:center"><img align="center" src="/images/sobel/000009.jpg"></td>
 <td style="text-align:center"><img align="center" src="/images/image/000009.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dreal/000009.jpg" width="50%" height="50%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dreal/000009.jpg"></td>
 <td style="text-align:center"><img align="center" src="/images/pix2pix/000009.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dfake/000009.jpg" width="50%" height="50%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dfake/000009.jpg"></td>
 </tr>
 <tr>
 <td style="text-align:center"><img align="center" src="/images/sobel/000010.jpg"></td>
 <td style="text-align:center"><img align="center" src="/images/image/000010.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dreal/000010.jpg" width="50%" height="50%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dreal/000010.jpg"></td>
 <td style="text-align:center"><img align="center" src="/images/pix2pix/000010.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dfake/000010.jpg" width="50%" height="50%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dfake/000010.jpg"></td>
 </tr>
 <tr>
 <td style="text-align:center"><img align="center" src="/images/sobel/000012.jpg"></td>
 <td style="text-align:center"><img align="center" src="/images/image/000012.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dreal/000012.jpg" width="50%" height="50%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dreal/000012.jpg"></td>
 <td style="text-align:center"><img align="center" src="/images/pix2pix/000012.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dfake/000012.jpg" width="50%" height="50%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dfake/000012.jpg"></td>
 </tr>
 <tr>
 <td style="text-align:center"><img align="center" src="/images/sobel/000017.jpg"></td>
 <td style="text-align:center"><img align="center" src="/images/image/000017.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dreal/000017.jpg" width="50%" height="50%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dreal/000017.jpg"></td>
 <td style="text-align:center"><img align="center" src="/images/pix2pix/000017.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dfake/000017.jpg" width="50%" height="50%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dfake/000017.jpg"></td>
 </tr>
 </tbody>
 </table>
@@ -350,28 +223,28 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><img align="center" src="/images/image/000002.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/d/000002.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000002.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/image/000009.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/d/000009.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000009.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000009.jpg"></td>
 </tr>
 <tr>
-<td style="text-align:center"><img align="center" src="/images/image/000010.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/d/000010.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000010.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/image/000012.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/d/000012.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000012.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000012.jpg"></td>
 </tr>
 <tr>
-<td style="text-align:center"><img align="center" src="/images/image/000017.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/d/000017.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000017.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/image/000025.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/d/000025.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000025.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000025.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000025.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000025.jpg"></td>
 </tr>
 </tbody>
 </table>
@@ -388,45 +261,47 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><img align="center" src="/images/sobel/000002.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/image/000002.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000002.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/rgb_fake/000002.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/rgbd/000002.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgb_fake/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgbd/000002.jpg"></td>
 </tr>
 <tr>
-<td style="text-align:center"><img align="center" src="/images/sobel/000009.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/image/000009.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000009.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/rgb_fake/000009.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/rgbd/000009.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgb_fake/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgbd/000009.jpg"></td>
 </tr>
 <tr>
-<td style="text-align:center"><img align="center" src="/images/sobel/000010.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/image/000010.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000010.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/rgb_fake/000010.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/rgbd/000010.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgb_fake/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgbd/000010.jpg"></td>
 </tr>
 <tr>
-<td style="text-align:center"><img align="center" src="/images/sobel/000012.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/image/000012.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000012.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/rgb_fake/000012.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/rgbd/000012.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgb_fake/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgbd/000012.jpg"></td>
 </tr>
 <tr>
-<td style="text-align:center"><img align="center" src="/images/sobel/000017.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/image/000017.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000017.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/rgb_fake/000017.jpg" height="80%" width="80%"></td>
-<td style="text-align:center"><img align="center" src="/images/rgbd/000017.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgb_fake/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgbd/000017.jpg"></td>
 </tr>
 </tbody>
 </table>
 <p>Notice that this model can also output a reasonable result. In some cases, it can even outperform the two steps method, with much less calculation, since the VRN is an extremely large network with millions of parameters.</p>
 <h2 id="4-Implementation"><a href="#4-Implementation" class="headerlink" title="4. Implementation"></a>4. Implementation</h2><p>In this part, we will talk about the implementation of this system. This system contains four parts. Web front end, Pix2Pix Server, VRN Server and Pix2RGBD Server. Since loading the model into memory takes a long time, we encapsulate the two models as two individual service and load the model into memory. Only do the inference when there is a request.</p>
-<h3 id="4-1-Framework"><a href="#4-1-Framework" class="headerlink" title="4.1 Framework"></a>4.1 Framework</h3><p>In this part, we will have a whole view about the implemention of this project. The image below illustrate the module decomposition. The message between different modules are implemented by socket.<br><img align="center" src="/images/framework.jpg" width="60%" height="60%"></p>
+<h3 id="4-1-Framework"><a href="#4-1-Framework" class="headerlink" title="4.1 Framework"></a>4.1 Framework</h3><p>In this part, we will have a whole view about the implemention of this project. The image below illustrate the module decomposition. The message between different modules are implemented by socket.</p>
+<center><img align="center" src="/images/framework.jpg" width="60%" height="60%"></center>
+
 <h3 id="4-2-Module-Introductions"><a href="#4-2-Module-Introductions" class="headerlink" title="4.2 Module Introductions"></a>4.2 Module Introductions</h3><h4 id="4-2-1-Web-Front-End"><a href="#4-2-1-Web-Front-End" class="headerlink" title="4.2.1 Web Front End"></a>4.2.1 Web Front End</h4><p>The web front end aims to handle the human interaction and display the RGB image and 3D model to the user. It will send the human sketched image to the Pix2Pix Sever and receive the generated RGB image and 3D model.</p>
 <h4 id="4-2-2-Pix2Pix-Server"><a href="#4-2-2-Pix2Pix-Server" class="headerlink" title="4.2.2 Pix2Pix Server"></a>4.2.2 Pix2Pix Server</h4><p>The Pix2Pix Server will translate the hand sketched image into a RGB image then it will send this image to the VRN Server and get the 3D model. Finally, it will send the generated RGB image and 3D model to the Web Front End.</p>
 <h4 id="4-2-3-VRN-Server"><a href="#4-2-3-VRN-Server" class="headerlink" title="4.2.3 VRN Server"></a>4.2.3 VRN Server</h4><p>The VRN Server aims to translate the RGB image, recevived from Pix2Pix Server, into a 3D model and send this 3D model to Pix2Pix Server.</p>
@@ -434,137 +309,170 @@
 <h2 id="5-Conclusion"><a href="#5-Conclusion" class="headerlink" title="5. Conclusion"></a>5. Conclusion</h2><p>In this project, we successfully build a system to translate the human skteched human face into a 3D model. We have tried two different approaches, one is a combination of Pix2Pix and VRN, the other one is an Pix2RGBD model. It turns out the Pix2RGBD model can also output a resenable result with less calculation. We have also developped a web demo for this project.</p>
 <h2 id="6-Reference"><a href="#6-Reference" class="headerlink" title="6. Reference"></a>6. Reference</h2><p>[1] Isola, Phillip, et al. “Image-to-image translation with conditional adversarial networks.” CVPR. 2017.<br>[2] Jackson, Aaron S., et al. “Large Pose 3D Face Reconstruction from a Single Image via Direct Volumetric CNN Regression.” ICCV. 2017.<br>[3] Liu, Ziwei, et al. “Deep learning face attributes in the wild.” ICCV. 2015.<br>[4] Zhu, Xiangyu, et al. “Face alignment across large poses: A 3d solution.” CVPR. 2016.<br>[5] Newell, Alejandro, et al. “Stacked hourglass networks for human pose estimation.” ECCV. 2016.</p>
 
-      
+            </article>
+            
+                <div class="share">
+                    <!--开启分享-->
+<div class="share-component" data-disabled="tencent,diandian,qzone,qq,douban" data-description="1 Project IntroductionThis ..."></div>
+
+<script src="/js/share.min.js"></script>
+
+                </div>
+            
+            
+                
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script>
+
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+  /*
+  var disqus_config = function () {
+  this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+  */
+  (function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = '//www-duzhongxiang-com.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+        </div>
+        <div class="column one-thirds">
+            
+                
+                
+
+
+<h3>Post Directory</h3>
+
+<div id="post-directory-module">
+	<section class="post-directory">
+		<p><strong class="toc-title">Directory</strong></p>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Project-Introduction"><span class="toc-text">1 Project Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Two-Step-Model"><span class="toc-text">2 Two Step Model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Pix2Pix-Model-Introduction"><span class="toc-text">2.1 Pix2Pix Model Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-Network-Structure-and-Loss-Function"><span class="toc-text">2.1.1 Network Structure and Loss Function</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-Training-Data"><span class="toc-text">2.1.2 Training Data</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-Result"><span class="toc-text">2.1.3 Result</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3D-Generation-Model"><span class="toc-text">2.2 3D Generation Model</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-Loss-Function"><span class="toc-text">2.2.1 Loss Function</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-Volume-Regression-Network-Structure"><span class="toc-text">2.2.2 Volume Regression Network Structure</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Workflow"><span class="toc-text">2.3 Workflow</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-RGBD-Model"><span class="toc-text">3 RGBD Model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Motivations"><span class="toc-text">3.1 Motivations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Training-Data"><span class="toc-text">3.2 Training Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Output-sample-and-Analysis"><span class="toc-text">3.3 Output sample and Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Implementation"><span class="toc-text">4. Implementation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-Framework"><span class="toc-text">4.1 Framework</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-Module-Introductions"><span class="toc-text">4.2 Module Introductions</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-Web-Front-End"><span class="toc-text">4.2.1 Web Front End</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-Pix2Pix-Server"><span class="toc-text">4.2.2 Pix2Pix Server</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-3-VRN-Server"><span class="toc-text">4.2.3 VRN Server</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-3-Pix2RGBD-Server"><span class="toc-text">4.2.3 Pix2RGBD Server</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Conclusion"><span class="toc-text">5. Conclusion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Reference"><span class="toc-text">6. Reference</span></a></li></ol>
+	</section>
+</div>
+
+            
+        </div>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://www.duzhongxiang.com/2017/11/25/HummingDog/" data-id="cjafoogj30005rfte0kc1zet4" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Computer-Vision/">Computer Vision</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Deep-Learning/">Deep Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GAN/">GAN</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-  
-    <a href="/2017/01/06/SVM/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">SVM</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
 </section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Operation-System/">Operation System</a></li></ul>
+
+
+<footer class="container">
+    <div class="site-footer" role="contentinfo">
+        <div class="copyright left mobile-block">
+                © 2016
+                <span title="ZhongxiangDu">Zhongxiang Du</span>
+                <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+        </div>
+
+        <ul class="site-footer-links right mobile-hidden">
+            <li>
+                <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+            </li>
+        </ul>
+
+        <!-- a href="https://github.com/" target="_blank" aria-label="view source code">
+            <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+        </a-->
+
+        <ul class="site-footer-links mobile-hidden">
+            
+                  
+                  <li>
+                    <a href="/"  title="Home">Home</a>
+                  </li>
+            
+                  
+                  <li>
+                    <a href="/categories/"  title="Categories">Categories</a>
+                  </li>
+            
+                  
+                  <li>
+                    <a href="/open-source/"  title="Projects">Projects</a>
+                  </li>
+            
+                  
+                  <li>
+                    <a href="/about/"  title="About">About</a>
+                  </li>
+            
+            <li>
+                <a href="/atom.xml">
+                    <span class="octicon octicon-rss" style="color:orange;"></span>
+                </a>
+            </li>
+        </ul>
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Classifier/">Classifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Vision/">Computer Vision</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Estimation/">Estimation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/File-System/">File System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GAN/">GAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Operation-System/">Operation System</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Classifier/" style="font-size: 15px;">Classifier</a> <a href="/tags/Computer-Vision/" style="font-size: 10px;">Computer Vision</a> <a href="/tags/Deep-Learning/" style="font-size: 10px;">Deep Learning</a> <a href="/tags/Estimation/" style="font-size: 12.5px;">Estimation</a> <a href="/tags/File-System/" style="font-size: 12.5px;">File System</a> <a href="/tags/GAN/" style="font-size: 10px;">GAN</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Operation-System/" style="font-size: 17.5px;">Operation System</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2017/11/25/HummingDog/">HummingDog 3D Face Painter</a>
-          </li>
-        
-          <li>
-            <a href="/2017/01/06/SVM/">SVM</a>
-          </li>
-        
-          <li>
-            <a href="/2017/01/05/Softmax/">Softmax</a>
-          </li>
-        
-          <li>
-            <a href="/2017/01/04/Logistic-Regression/">Logistic Regression</a>
-          </li>
-        
-          <li>
-            <a href="/2017/01/03/Naive-Bayes/">Naive Bayes</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2017 Zhongxiang Du<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script src="/js/geopattern.js"></script>
+		<script src="/js/highlight.pack.js"></script>
+		<script src="/lib/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 
+		
+			<script src="/js/toc.js"></script>
+		
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+		
+			<script src="/js/search.js"></script>
 
+			<script type="text/javascript">
+				$(function(){
+					var currentIndex = -1;
+					var search_path = "search.xml";
+					if (!search_path) search_path = "search.xml";
+					var path = "/" + search_path;
+					searchFunc(path, 'search', 'local-search-result');
 
-<script src="/js/script.js"></script>
+					$(document).delegate("#local-search-result>.search-result-list li","hover",function(){
+						var liNode = $("#local-search-result>.search-result-list li");
+						liNode.removeClass("hover");
+						currentIndex = $("#local-search-result>.search-result-list li").index($(this));
+						liNode.eq(currentIndex).addClass("hover");
+					})
 
-  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+					$("#search-form").submit(function(){
+						return false;
+					})
+
+					$("#search").keydown(function(event){
+						var keyCode = event.keyCode;
+						var liNode = $("#local-search-result>.search-result-list li");
+						if(keyCode == 38 || keyCode == 40 || keyCode == 13){
+							liNode.removeClass("hover");
+							if(keyCode == 38){
+								if(currentIndex - 1 >= 0) currentIndex --;
+							}
+							if(keyCode == 40){
+								if(currentIndex + 1 < liNode.length) currentIndex ++;
+							}
+							if(keyCode == 13){
+								location.href = liNode.eq(currentIndex).find("a").attr("href");
+							}
+							liNode.eq(currentIndex).addClass("hover");
+							return false;
+						}else{
+							currentIndex = -1;
+						}
+					})
+				})
+			</script>
+		
+
+		<script src="/js/index.js"></script>
+
+		 <script src="/js/popular_repo.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
@@ -581,6 +489,7 @@
 <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-</body>
+<!-- hexo-inject:end --> 
+
+	</body>
 </html>
