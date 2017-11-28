@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.duzhongxiang.com/"/>
-  <updated>2017-11-28T01:01:08.168Z</updated>
+  <updated>2017-11-28T01:31:51.753Z</updated>
   <id>http://www.duzhongxiang.com/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="http://www.duzhongxiang.com/2017/11/25/HummingDog/"/>
     <id>http://www.duzhongxiang.com/2017/11/25/HummingDog/</id>
     <published>2017-11-25T18:04:19.000Z</published>
-    <updated>2017-11-28T01:01:08.168Z</updated>
+    <updated>2017-11-28T01:31:51.753Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="1-Project-Introduction"><a href="#1-Project-Introduction" class="headerlink" title="1 Project Introduction"></a>1 Project Introduction</h2><p>This project is about building a system to translate a hand sketched human face into a 3D face model. The main problem about this system is Building a model to learn the outline pattern of human face and applying GAN to the generated face more real.<br>We have tried two methods in this project. One is a two step model, generating the RGB face and 3D face in two steps. The other is an End-to-End Pix2RGBD model, which tries to combine the two models together and generate 3D model directly from the hand skecthed image.</p>
+    <content type="html"><![CDATA[<h2 id="1-Project-Introduction"><a href="#1-Project-Introduction" class="headerlink" title="1 Project Introduction"></a>1 Project Introduction</h2><p>This project is about building a system to translate a hand sketched human face into a 3D face model. The main problem about this system is Building a model to learn the outline pattern of human face and applying GAN to the generated face more real. <a id="more"></a><br>We have tried two methods in this project. One is a two step model, generating the RGB face and 3D face in two steps. The other is an End-to-End Pix2RGBD model, which tries to combine the two models together and generate 3D model directly from the hand skecthed image.</p>
 <h2 id="2-Two-Step-Model"><a href="#2-Two-Step-Model" class="headerlink" title="2 Two Step Model"></a>2 Two Step Model</h2><p>The Two Step Model is a concatenation of two models. They are Pix2Pix Model and 3D Generation Model.</p>
 <h3 id="2-1-Pix2Pix-Model-Introduction"><a href="#2-1-Pix2Pix-Model-Introduction" class="headerlink" title="2.1 Pix2Pix Model Introduction"></a>2.1 Pix2Pix Model Introduction</h3><p>This model was published in [1], which aims to translate an image into another image. In this project, we take advantage of this model to translate our hand sketched human face into a colored RGB human face.</p>
 <h4 id="2-1-1-Network-Structure-and-Loss-Function"><a href="#2-1-1-Network-Structure-and-Loss-Function" class="headerlink" title="2.1.1 Network Structure and Loss Function"></a>2.1.1 Network Structure and Loss Function</h4><p>We apply a similar network structure descibled in [1], but we have changed some hyper parameters to make this model more suitable for our system. The GAN is applied in this model. The structure of generator part is shown below.<br><img align="center" src="/images/pix2pix.jpg"><br>The input is an image with size 192*192, which only contains two kind of values (0, 255). The generator will generate a 192*192 colored image with three channels. The structure of the discriminator is shown below. The 192*192*4 input tensor is a concatenation of a hand skectched image and its corresponding RGB image. The discriminator will decide whether the RGB image is real or fake.<br><img align="center" src="/images/discriminator.jpg" width="50%" height="50%"><br>The loss function of our model is<br>$$L_{GAN}=\mathbb{E}_{y\sim p_{data}(y)}[\log D(y)]+\mathbb{E}_{x\sim p_{data}(x),z\sim p_{z}(z)}[1 - \log D(G(x))]\\<br>L= arg~\underset{G}{min}~\underset{D}{max}~L_{GAN} +\lambda \mathbb{E} \left \| y-G(x)) \right \|_1$$<br>x is the input hand sketched image; y is the ground truth; D and G are the generator and discriminator.</p>
@@ -173,28 +173,28 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><img align="center" src="/images/image/000002.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/d/000002.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000002.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/image/000009.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/d/000009.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000002.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000002.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000002.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000009.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000009.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000009.jpg" height="80%" width="80%"></td>
 </tr>
 <tr>
-<td style="text-align:center"><img align="center" src="/images/image/000010.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/d/000010.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000010.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/image/000012.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/d/000012.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000010.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000010.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000010.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000012.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000012.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000012.jpg" height="80%" width="80%"></td>
 </tr>
 <tr>
-<td style="text-align:center"><img align="center" src="/images/image/000017.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/d/000017.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000017.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/image/000025.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/d/000025.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000025.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000017.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000017.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000017.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000025.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000025.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000025.jpg" height="80%" width="80%"></td>
 </tr>
 </tbody>
 </table>
@@ -211,45 +211,45 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><img align="center" src="/images/sobel/000002.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/image/000002.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000002.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/rgb_fake/000002.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/rgbd/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000002.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000002.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000002.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/rgb_fake/000002.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/rgbd/000002.jpg" height="80%" width="80%"></td>
 </tr>
 <tr>
-<td style="text-align:center"><img align="center" src="/images/sobel/000009.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/image/000009.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000009.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/rgb_fake/000009.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/rgbd/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000009.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000009.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000009.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/rgb_fake/000009.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/rgbd/000009.jpg" height="80%" width="80%"></td>
 </tr>
 <tr>
-<td style="text-align:center"><img align="center" src="/images/sobel/000010.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/image/000010.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000010.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/rgb_fake/000010.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/rgbd/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000010.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000010.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000010.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/rgb_fake/000010.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/rgbd/000010.jpg" height="80%" width="80%"></td>
 </tr>
 <tr>
-<td style="text-align:center"><img align="center" src="/images/sobel/000012.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/image/000012.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000012.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/rgb_fake/000012.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/rgbd/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000012.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000012.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000012.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/rgb_fake/000012.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/rgbd/000012.jpg" height="80%" width="80%"></td>
 </tr>
 <tr>
-<td style="text-align:center"><img align="center" src="/images/sobel/000017.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/image/000017.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/3dd/000017.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/rgb_fake/000017.jpg"></td>
-<td style="text-align:center"><img align="center" src="/images/rgbd/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000017.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000017.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000017.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/rgb_fake/000017.jpg" height="80%" width="80%"></td>
+<td style="text-align:center"><img align="center" src="/images/rgbd/000017.jpg" height="80%" width="80%"></td>
 </tr>
 </tbody>
 </table>
 <p>Notice that this model can also output a reasonable result. In some cases, it can even outperform the two steps method, with much less calculation, since the VRN is an extremely large network with millions of parameters.</p>
 <h2 id="4-Implementation"><a href="#4-Implementation" class="headerlink" title="4. Implementation"></a>4. Implementation</h2><p>In this part, we will talk about the implementation of this system. This system contains four parts. Web front end, Pix2Pix Server, VRN Server and Pix2RGBD Server. Since loading the model into memory takes a long time, we encapsulate the two models as two individual service and load the model into memory. Only do the inference when there is a request.</p>
-<h3 id="4-1-Framework"><a href="#4-1-Framework" class="headerlink" title="4.1 Framework"></a>4.1 Framework</h3><p>In this part, we will have a whole view about the implemention of this project. The image below illustrate the module decomposition. The message between different modules are implemented by socket.<br><img align="center" src="/images/framework.jpg" width="80%" height="80%"></p>
+<h3 id="4-1-Framework"><a href="#4-1-Framework" class="headerlink" title="4.1 Framework"></a>4.1 Framework</h3><p>In this part, we will have a whole view about the implemention of this project. The image below illustrate the module decomposition. The message between different modules are implemented by socket.<br><img align="center" src="/images/framework.jpg" width="60%" height="60%"></p>
 <h3 id="4-2-Module-Introductions"><a href="#4-2-Module-Introductions" class="headerlink" title="4.2 Module Introductions"></a>4.2 Module Introductions</h3><h4 id="4-2-1-Web-Front-End"><a href="#4-2-1-Web-Front-End" class="headerlink" title="4.2.1 Web Front End"></a>4.2.1 Web Front End</h4><p>The web front end aims to handle the human interaction and display the RGB image and 3D model to the user. It will send the human sketched image to the Pix2Pix Sever and receive the generated RGB image and 3D model.</p>
 <h4 id="4-2-2-Pix2Pix-Server"><a href="#4-2-2-Pix2Pix-Server" class="headerlink" title="4.2.2 Pix2Pix Server"></a>4.2.2 Pix2Pix Server</h4><p>The Pix2Pix Server will translate the hand sketched image into a RGB image then it will send this image to the VRN Server and get the 3D model. Finally, it will send the generated RGB image and 3D model to the Web Front End.</p>
 <h4 id="4-2-3-VRN-Server"><a href="#4-2-3-VRN-Server" class="headerlink" title="4.2.3 VRN Server"></a>4.2.3 VRN Server</h4><p>The VRN Server aims to translate the RGB image, recevived from Pix2Pix Server, into a 3D model and send this 3D model to Pix2Pix Server.</p>
@@ -260,7 +260,7 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;1-Project-Introduction&quot;&gt;&lt;a href=&quot;#1-Project-Introduction&quot; class=&quot;headerlink&quot; title=&quot;1 Project Introduction&quot;&gt;&lt;/a&gt;1 Project Introducti
+      &lt;h2 id=&quot;1-Project-Introduction&quot;&gt;&lt;a href=&quot;#1-Project-Introduction&quot; class=&quot;headerlink&quot; title=&quot;1 Project Introduction&quot;&gt;&lt;/a&gt;1 Project Introduction&lt;/h2&gt;&lt;p&gt;This project is about building a system to translate a hand sketched human face into a 3D face model. The main problem about this system is Building a model to learn the outline pattern of human face and applying GAN to the generated face more real.
     
     </summary>
     
@@ -280,16 +280,16 @@
     <link href="http://www.duzhongxiang.com/2017/01/06/SVM/"/>
     <id>http://www.duzhongxiang.com/2017/01/06/SVM/</id>
     <published>2017-01-07T00:50:46.000Z</published>
-    <updated>2017-01-05T23:57:24.000Z</updated>
+    <updated>2017-11-28T01:32:14.704Z</updated>
     
-    <content type="html"><![CDATA[<p>SVM (Support vector machine) is a powerful classifier. We can use SVM to find a hyperplane to devide the sample space into two parts. The samples on one side are marked as positive(+) and the samples on the other side are marked as negative(-). The SVM aims to maximize the distance between $L+$ and $L-$.<br><img align="center" width="60%" height="60%" src="/images/SVMplane.svg"><br>For the positive samples ($y=+1$) we have $w^Tx+b\geq 1$ and for the negative samples ($y=-1$) we have $w^Tx+b\leq -1$. So for all the samples, $y(w^Tx+b)\geq 1$. The between $L+$ and $L-$ is $\frac{2}{\left\|w\right\|}$. Minimizing the distance equals to maximizing $\left\|w\right\|^2$. In some situations, it is hard for us to devide the positive and negative samples with a plane. In this case, we can introduce a soft margin factor $\xi$. So the object funtion becomes:($C$ is the punishment factor and $n$ is the number of samples)<br>$$min \frac{1}{2}\left\|w\right\|^2 + C\sum_{i=1}^{n}\xi_i\\<br>s.t.~~~~y_i(w^Tx_i+b)\geq 1-\xi_i\\<br>\xi_i \geq 0\\<br>i\in[1,2…n]$$<br>Applying lagrange multiplier we can have:<br>$$L(w,b,\xi,\alpha,\beta)=\frac{1}{2}\left\|w\right\|^2+\sum_{i=1}^{n}\alpha_i[1-\xi_i-y_i(w^Tx_i+b)]+C\sum_{i=1}^{n}\xi_i+\sum_{i=1}^{n}\beta_i(-\xi_i)\\<br>\frac{\partial}{\partial w}L(w,b,\xi,\alpha,\beta)=w-\sum_{i=1}^{n}\alpha_iy_ix_i=0~~~~\Rightarrow~~~~w=\sum_{i=1}^{n}\alpha_iy_ix_i\\<br>\frac{\partial}{\partial b}L(w,b,\xi,\alpha,\beta)=-\sum_{i=1}^{n}\alpha_iy_i=0\\<br>\frac{\partial}{\partial \xi_i}L(w,b,\xi,\alpha,\beta)=-\alpha_i-\beta_i+C=0,~~\because \beta_i\geq 0~~~~\Rightarrow~~~~0\leq\alpha_i\leq C\\<br>s.t.~~~~\xi_i\geq 0,~~~~\beta_i\geq 0\\<br>1-\xi_i-y_i(w^Tx_i+b)=0,~~~~\beta_i\xi_i=0$$<br>Applying the constrains to $L(w,b,\xi,\alpha,\beta)$ we can have:<br>$$L(w,b,\xi,\alpha,\beta)=\sum_{i=1}^{n}\alpha_i-\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_i\alpha_jy_iy_jx_ix_j\\<br>s.t.~~~~0\leq\alpha_i\leq C,~~~\beta_i\geq 0~~~\xi_i\geq 0\\<br>\alpha_i[1-\xi_i-y_i(w^Tx_i+b)]=0\\<br>\beta_i\xi_i=0\\<br>\sum_{i=1}^{n}\alpha_iy_i=0\\<br>w=\sum_{i=1}^{n}\alpha_iy_ix_i\\<br>C=\alpha_i+\beta_i$$<br>When $\alpha_i=0$, the sample $i$ is not the support vector and $y_i(w^Tx_i+b)\geq 1$.<br>When $\alpha_i \in (0,C)$, $\beta_i&gt;0$, $\xi_i=0$ so $y_i(w^Tx_i+b)=1$, the sample $i$ is the support vector, and it is what we need.<br>When $\alpha_i=C$, $\beta_i=0$, $\xi_i\geq 0$, so $y_i(w^Tx_i+b)\leq 1$, the sample $i$ is between the soft margin and the hyperplane.</p>
+    <content type="html"><![CDATA[<p>SVM (Support vector machine) is a powerful classifier. We can use SVM to find a hyperplane to devide the sample space into two parts.<a id="more"></a> The samples on one side are marked as positive(+) and the samples on the other side are marked as negative(-). The SVM aims to maximize the distance between $L+$ and $L-$.<br><img align="center" width="60%" height="60%" src="/images/SVMplane.svg"><br>For the positive samples ($y=+1$) we have $w^Tx+b\geq 1$ and for the negative samples ($y=-1$) we have $w^Tx+b\leq -1$. So for all the samples, $y(w^Tx+b)\geq 1$. The between $L+$ and $L-$ is $\frac{2}{\left\|w\right\|}$. Minimizing the distance equals to maximizing $\left\|w\right\|^2$. In some situations, it is hard for us to devide the positive and negative samples with a plane. In this case, we can introduce a soft margin factor $\xi$. So the object funtion becomes:($C$ is the punishment factor and $n$ is the number of samples)<br>$$min \frac{1}{2}\left\|w\right\|^2 + C\sum_{i=1}^{n}\xi_i\\<br>s.t.~~~~y_i(w^Tx_i+b)\geq 1-\xi_i\\<br>\xi_i \geq 0\\<br>i\in[1,2…n]$$<br>Applying lagrange multiplier we can have:<br>$$L(w,b,\xi,\alpha,\beta)=\frac{1}{2}\left\|w\right\|^2+\sum_{i=1}^{n}\alpha_i[1-\xi_i-y_i(w^Tx_i+b)]+C\sum_{i=1}^{n}\xi_i+\sum_{i=1}^{n}\beta_i(-\xi_i)\\<br>\frac{\partial}{\partial w}L(w,b,\xi,\alpha,\beta)=w-\sum_{i=1}^{n}\alpha_iy_ix_i=0~~~~\Rightarrow~~~~w=\sum_{i=1}^{n}\alpha_iy_ix_i\\<br>\frac{\partial}{\partial b}L(w,b,\xi,\alpha,\beta)=-\sum_{i=1}^{n}\alpha_iy_i=0\\<br>\frac{\partial}{\partial \xi_i}L(w,b,\xi,\alpha,\beta)=-\alpha_i-\beta_i+C=0,~~\because \beta_i\geq 0~~~~\Rightarrow~~~~0\leq\alpha_i\leq C\\<br>s.t.~~~~\xi_i\geq 0,~~~~\beta_i\geq 0\\<br>1-\xi_i-y_i(w^Tx_i+b)=0,~~~~\beta_i\xi_i=0$$<br>Applying the constrains to $L(w,b,\xi,\alpha,\beta)$ we can have:<br>$$L(w,b,\xi,\alpha,\beta)=\sum_{i=1}^{n}\alpha_i-\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_i\alpha_jy_iy_jx_ix_j\\<br>s.t.~~~~0\leq\alpha_i\leq C,~~~\beta_i\geq 0~~~\xi_i\geq 0\\<br>\alpha_i[1-\xi_i-y_i(w^Tx_i+b)]=0\\<br>\beta_i\xi_i=0\\<br>\sum_{i=1}^{n}\alpha_iy_i=0\\<br>w=\sum_{i=1}^{n}\alpha_iy_ix_i\\<br>C=\alpha_i+\beta_i$$<br>When $\alpha_i=0$, the sample $i$ is not the support vector and $y_i(w^Tx_i+b)\geq 1$.<br>When $\alpha_i \in (0,C)$, $\beta_i&gt;0$, $\xi_i=0$ so $y_i(w^Tx_i+b)=1$, the sample $i$ is the support vector, and it is what we need.<br>When $\alpha_i=C$, $\beta_i=0$, $\xi_i\geq 0$, so $y_i(w^Tx_i+b)\leq 1$, the sample $i$ is between the soft margin and the hyperplane.</p>
 <p>We can use SMO (Sequential Minimal Optimization) to optimize this problem. Select $\alpha_a$ and $\alpha_b$ set $\alpha_ay_a+\alpha_by_b+\sum_{i\neq a,i\neq b}\alpha_i^*y_i = 0$, we can get $\alpha_ay_a+\alpha_by_b = \alpha_a^*y_a+\alpha_b^*y_b = -\sum_{i\neq a,~ i\neq b}\alpha_i^*y_i = -\sum_{i\neq a,~ i\neq b}\alpha_iy_i=M$, here $\alpha_i^*$ is the value of $\alpha_i$ before optimalization.<br>$$L=\alpha_a+\alpha_b-\alpha_ay_ax_a\sum_{i\neq a,i\neq b}\alpha_iy_ix_i-\alpha_by_bx_b\sum_{i\neq a,i\neq b}\alpha_iy_ix_i-\alpha_ay_ax_a\alpha_by_bx_b\\<br>-\frac{1}{2}\alpha_a^2x_ax_a-\frac{1}{2}\alpha_b^2x_bx_b+const\\<br>=y_a(M-\alpha_by_b)+\alpha_b-(M-\alpha_by_b)x_a\sum_{i\neq a,i\neq b}\alpha_iy_ix_i-\alpha_by_bx_b\sum_{i\neq a,i\neq b}\alpha_iy_ix_i\\<br>-\alpha_b(M-\alpha_by_b)y_bx_ax_b-\frac{1}{2}(M-\alpha_by_b)^2x_ax_a-\frac{1}{2}\alpha_b^2x_bx_b+const$$<br>Set $x_ax_a=K_{aa}$, $x_ax_b=K_{ab}$, $x_bx_b=K_{bb}$ and $y_ay_b=S$. The items irrelevant to $\alpha_a$ and $\alpha_b$ are absorbed by $const$.<br>$$L=-S\alpha_b+\alpha_b+\alpha_by_bx_a\sum_{i\neq a,i\neq b}\alpha_iy_ix_i-\alpha_by_bx_b\sum_{i\neq a,i\neq b}\alpha_iy_ix_i-M\alpha_by_bx_ax_b\\<br>+\alpha_b^2x_ax_b+M\alpha_ay_bx_ax_a-\frac{1}{2}\alpha_b^2x_ax_a-\frac{1}{2}\alpha_b^2x_bx_b+const\\<br>=-\frac{1}{2}(K_{aa}+K_{bb}-2K_{ab})\alpha_b^2+(1-S)\alpha_b+(\alpha_by_bx_a-\alpha_by_bx_b)\sum_{i\neq a,i\neq b}\alpha_iy_ix_i\\<br>-M\alpha_by_bK_{ab}+M\alpha_by_bK_{aa}+const$$<br>Because $M=\alpha_a^*y_a+\alpha_b^*y_b$, $w=\sum_{i=1}^{n}\alpha_i^*y_ix_i=\alpha_a^*y_ax_a+\alpha_b^*y_bx_b+\sum_{i\neq a,i\neq b}\alpha_iy_ix_i$, there is $\sum_{i\neq a,i\neq b}\alpha_iy_ix_i=w-\alpha_a^*y_ax_a-\alpha_b^*y_bx_b$. Set $K_{aa}+K_{bb}-2K_{ab}=\eta$<br>$$\frac{\partial}{\partial \alpha_b}L=-\eta\alpha_b+(1-S)+(y_bx_a-y_bx_b)(w-\alpha_a^*y_ax_a-\alpha_b^*y_bx_b)\\<br>-(\alpha_a^*y_a+\alpha_b^*y_b)(y_bK_{ab}-y_bK_{aa})=0\\<br>-\eta\alpha_b+(1-S)+(y_ax_a-y_bx_b)w+\eta\alpha_b^*=0\\<br>\alpha_b = \alpha_b^*+\frac{(1-S)+(y_ax_a-y_bx_b)w}{\eta}\\<br>(1-S)+(y_ax_a-y_bx_b)w=y_b[y_b-y_a+(x_a-x_b)w]$$<br>Set $u_a=wx_a+b$ and $u_b=wx_b+b$, then $(x_a-x_b)w=u_a-u_b$<br>$$\alpha_b = \alpha_b^*+\frac{y_b(y_b-y_a+u_a-u_b)}{\eta}$$<br>As $\alpha_a \in [0,C]$, $M=y_a\alpha_a+y_b\alpha_b$, we need to restrict the value of $\alpha_b$.<br>When $y_a=1$ and $y_b=-1$, $M=\alpha_a^*-\alpha_b^*$, so $-\alpha_a^*+\alpha_b^*\leq \alpha_b \leq C-\alpha_a^*+\alpha_b^*$<br>When $y_a=-1$ and $y_b=1$, $M=-\alpha_a^*+\alpha_b^*$, so $\alpha_b^*-\alpha_a^*\leq \alpha_b \leq C+\alpha_b^*-\alpha_a^*$<br>When $y_a=1$ and $y_b=1$, $M=\alpha_a^*+\alpha_b^*$, so $\alpha_a^*+\alpha_b^*-C\leq \alpha_b \leq \alpha_a^*+\alpha_b^*$.<br>When $y_a=-1$ and $y_b=-1$, $M=-\alpha_a^*-\alpha_b^*$, so $\alpha_a^*+\alpha_b^*-C\leq \alpha_b \leq \alpha_a^*+\alpha_b^*$.<br>So when $y_a\neq y_b$, $Low=max(0,\alpha_b^*-\alpha_a^*)$, $High=min(C,C+\alpha_b^*-\alpha_a^*)$;<br>when $y_a= y_b$, $Low=max(0,\alpha_a^*+\alpha_b^*-C)$, $High=min(C,\alpha_a^*+\alpha_b^*)$. So<br>$$\alpha_b=\left\{\begin{matrix}<br>Low &amp; \alpha_b \leq Low\\<br>\alpha_b  &amp; Low&lt;\alpha_b &lt; High\\<br>High &amp; \alpha_b \geq High<br>\end{matrix}\right.$$</p>
 <p>After updating $\alpha_b$, update $\alpha_a$ by the relationship $\alpha_ay_a+\alpha_by_b = -\sum_{i\neq a,~ i\neq b}\alpha_i^*y_i$ and $w_{new} = w+y_a(\alpha_a-\alpha_a^*)x_a+y_b(\alpha_b-\alpha_b^*)x_b$<br>Then we need to update $b$. Before the updating, there is $b^* = u-wx = u-(\alpha_a^*y_ax_a+\alpha_b^*y_bx_b)x+Mx$. After the uodating, there is $y(w_{new}x+b)=1$ and $b=y-(\alpha_ay_ax_a+\alpha_by_bx_b)x+Mx$. So there is the relationship.<br>$$b=b^*+(y-u)+y_a(\alpha_a^*-\alpha_a)x_ax+y_b(\alpha_b^*-\alpha_b)x_bx\\<br>b_a=b^*+(y_a-u_a)+y_a(\alpha_a^*-\alpha_a)K_{aa}+y_b(\alpha_b^*-\alpha_b)K_{ab}\\<br>b_b=b^*+(y_b-u_b)+y_a(\alpha_a^*-\alpha_a)K_{ab}+y_b(\alpha_b^*-\alpha_b)K_{bb}$$<br>We will select the $b$ that satisfies the KKT conditions and not on the bound ($\alpha\in(0,C)$). When $\alpha=0$ or $\alpha=C$, $b$ is at the bound and we set $b_{new}=\frac{b_a+b_b}{2}$. So there is<br>$$b_{new}=\left\{\begin{matrix}<br>b_a &amp; \alpha_a \in(0,C) \\<br>b_b &amp; \alpha_b \in(0,C) \\<br>\frac{b_a+b_b}{2} &amp; otherwise<br>\end{matrix}\right.$$<br>In practice, we will choose the $\alpha$ which does not satisfies the KKT to optimalize.<br>When $y_iu_i &lt; 1$, the $\alpha_i$ should be $C$;<br>When $y_iu_i &gt; 1$, the $\alpha_i$ should be $0$;<br>When $y_iu_i = 1$, the $\alpha_i$ should be in $(0,C)$.</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;SVM (Support vector machine) is a powerful classifier. We can use SVM to find a hyperplane to devide the sample space into two parts. The
+      &lt;p&gt;SVM (Support vector machine) is a powerful classifier. We can use SVM to find a hyperplane to devide the sample space into two parts.
     
     </summary>
     
@@ -305,14 +305,14 @@
     <link href="http://www.duzhongxiang.com/2017/01/05/Softmax/"/>
     <id>http://www.duzhongxiang.com/2017/01/05/Softmax/</id>
     <published>2017-01-06T00:49:56.000Z</published>
-    <updated>2017-01-04T19:34:31.000Z</updated>
+    <updated>2017-11-28T01:32:28.542Z</updated>
     
-    <content type="html"><![CDATA[<p>Softmax is a multiclass classifier, it is also based on discrimated model and very similar to <a href="/2017/01/04/Logistic-Regression/" title="Logistic Regression">Logistic Regression</a>. But here we use a softmax function instand of a sigmoid function. With softmax function, the posterior probability of a sample $x$ and it label $c\in[1…K]$ ($K$ is the number of classifications) is shown below.<br>$$P(C=c|x)=\frac{e^{w_c^Tx}}{\sum_{i=1}^{K}e^{w_i^Tx}}$$<br>It is easy to find that in Logistic Regression $w$ is a vector but here it is a matrix. Given a set of training data $D=\{(x_1, c_1), (x_2, c_2) … (x_n, c_n)\}$, $x_i\in R^d$, $c_i\in[1…K]$, define $y_i\in R^K$.<br>$$y_{ik}=\left\{\begin{matrix}<br>1 &amp; if c_i = k\\<br>0 &amp; otherwise<br>\end{matrix}\right.$$<br>So we can have<br>$$P(D) = \prod_{i=1}^{n}P(c_i|x_i)\\<br>\log P(D) = \sum_{i=1}^{n}\log P(c_i|x_i)=\sum_{i=1}^{n}\log \prod_{k=1}^{K}P(c_k|x_i)^{y_{ik}}=\sum_{i=1}^{n}\sum_{k=1}^{K}y_{ik}\log P(c_k|x_i)$$<br>Define $L(w) = -\log P(D)$, so $w^*=argmax_w P(D) = argmin_w L(w)$. We can use the similar optimalization method as we have used in <a href="/2017/01/04/Logistic-Regression/" title="Logistic Regression">Logistic Regression</a> to optimalize $w$ here.</p>
+    <content type="html"><![CDATA[<p>Softmax is a multiclass classifier, it is also based on discrimated model and very similar to <a href="/2017/01/04/Logistic-Regression/" title="Logistic Regression">Logistic Regression</a>. But here we use a softmax function instand of a sigmoid function. <a id="more"></a>With softmax function, the posterior probability of a sample $x$ and it label $c\in[1…K]$ ($K$ is the number of classifications) is shown below.<br>$$P(C=c|x)=\frac{e^{w_c^Tx}}{\sum_{i=1}^{K}e^{w_i^Tx}}$$<br>It is easy to find that in Logistic Regression $w$ is a vector but here it is a matrix. Given a set of training data $D=\{(x_1, c_1), (x_2, c_2) … (x_n, c_n)\}$, $x_i\in R^d$, $c_i\in[1…K]$, define $y_i\in R^K$.<br>$$y_{ik}=\left\{\begin{matrix}<br>1 &amp; if c_i = k\\<br>0 &amp; otherwise<br>\end{matrix}\right.$$<br>So we can have<br>$$P(D) = \prod_{i=1}^{n}P(c_i|x_i)\\<br>\log P(D) = \sum_{i=1}^{n}\log P(c_i|x_i)=\sum_{i=1}^{n}\log \prod_{k=1}^{K}P(c_k|x_i)^{y_{ik}}=\sum_{i=1}^{n}\sum_{k=1}^{K}y_{ik}\log P(c_k|x_i)$$<br>Define $L(w) = -\log P(D)$, so $w^*=argmax_w P(D) = argmin_w L(w)$. We can use the similar optimalization method as we have used in <a href="/2017/01/04/Logistic-Regression/" title="Logistic Regression">Logistic Regression</a> to optimalize $w$ here.</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;Softmax is a multiclass classifier, it is also based on discrimated model and very similar to &lt;a href=&quot;/2017/01/04/Logistic-Regression/&quot; 
+      &lt;p&gt;Softmax is a multiclass classifier, it is also based on discrimated model and very similar to &lt;a href=&quot;/2017/01/04/Logistic-Regression/&quot; title=&quot;Logistic Regression&quot;&gt;Logistic Regression&lt;/a&gt;. But here we use a softmax function instand of a sigmoid function.
     
     </summary>
     
@@ -328,9 +328,9 @@
     <link href="http://www.duzhongxiang.com/2017/01/04/Logistic-Regression/"/>
     <id>http://www.duzhongxiang.com/2017/01/04/Logistic-Regression/</id>
     <published>2017-01-05T00:47:58.000Z</published>
-    <updated>2017-01-04T18:55:55.000Z</updated>
+    <updated>2017-11-28T01:32:46.689Z</updated>
     
-    <content type="html"><![CDATA[<p>Logistic Regression is a kind of classifier. Unlike <a href="/2017/01/03/Naive-Bayes/" title="Naive Bayes">Naive Bayes</a>, it is based on the discrimated model and use a sigmoid function $\sigma(x)=\frac{1}{1+e^{-x}}$ to deal with two classification problem. For a sample $x\in R^d$, it’s label is $y\in\{0, 1\}$, and $P(y|x,w)=\sigma(w^Tx)^y(1-\sigma(w^Tx))^{1-y}$ is the probability that $x$’s label is $y$, $w\in R^d$ is the parameter of this model.</p>
+    <content type="html"><![CDATA[<p>Logistic Regression is a kind of classifier. Unlike <a href="/2017/01/03/Naive-Bayes/" title="Naive Bayes">Naive Bayes</a>, it is based on the discrimated model and use a sigmoid function $\sigma(x)=\frac{1}{1+e^{-x}}$ to deal with two classification problem. <a id="more"></a>For a sample $x\in R^d$, it’s label is $y\in\{0, 1\}$, and $P(y|x,w)=\sigma(w^Tx)^y(1-\sigma(w^Tx))^{1-y}$ is the probability that $x$’s label is $y$, $w\in R^d$ is the parameter of this model.</p>
 <p>Given a set of labeled data $D={(x_1, y_1), (x_2, y_2) … (x_n, y_n)}$ and $x_i\in R^d$, $y_i\in\{0,1\}$. So, $P(D|w)=\prod_{i=1}^{n}P(y_i|x_i,w)=\prod_{i=1}^{n}\alpha_i^{y_i}(1-\alpha_i)^{1-y_i}$, here $\alpha_i=\frac{1}{1+e^{-w^Tx_i}}$. Define $L(w)=-\log P(D|w) = \sum_{i=1}^{n}y_i\log\alpha_i+\sum_{i=1}^{n}(1-y_i)\log(1-\alpha_i)$ and Based on the <a href="/2017/01/01/Maximum-Likehood-Estimation/" title="MLE">MLE</a> $w^*=argmax_w\log P(D|w)=argmin_wL(w)$. We will use Newton method to solve this problem.<br>$$\frac{\partial}{\partial w_j}\log \alpha_i= \frac{\partial}{\partial w_j}\{-\log(1+e^{-w^Tx_i})\}=\frac{x_{ij}e^{-w^Tx_i}}{1+e^{-w^Tx_i}}\\<br>\frac{\partial}{\partial w_j}\log(1-\alpha_i)=\frac{\partial}{\partial w_j}\log\frac{e^{-w^Tx_i}}{1+e^{-w^Tx_i}}=\frac{\partial}{\partial w_j}\{\log e^{-w^Tx_i}-\log(1+e^{-w^Tx_i})\}\\<br>=-x_{ij}+\frac{x_{ij}e^{-w^Tx_i}}{1+e^{-w^Tx_i}}=-\frac{x_{ij}}{1+e^{-w^Tx_i}}\\<br>\frac{\partial}{\partial w_j}L(w)=-\sum_{i=1}^{n}\{y_i\frac{x_{ij}e^{-w^Tx_i}}{1+e^{-w^Tx_i}}+(1-y_i)\frac{-x_{ij}}{1+e^{-w^Tx_i}}\}=-\sum_{i=1}^{n}\{x_{ij}\frac{y_i(1+e^{-w^Tx_i})-1}{1+e^{-w^Tx_i}}\}\\<br>=-\sum_{i=1}^{n}x_{ij}(y_i-\alpha_i)=\sum_{i=1}^{n}x_{ij}(\alpha_i-y_i)$$<br>Define matrix $A=[x_{ij}]$, $B=diag(\alpha_i(1-\alpha_i))$, $i\in[1…n]$, $j\in[1…d]$. So, we can have</p>
 <p>$$\begin{matrix}A=\begin{bmatrix}<br>x_{11} &amp; …  &amp; x_{1d}\\<br>\vdots &amp; \ddots &amp;\vdots \\<br>x_{n1} &amp; … &amp; x_{nd}\end{bmatrix}&amp;<br>B=\begin{bmatrix}<br>\alpha_1(1-\alpha_1) &amp; …  &amp; 0\\<br>\vdots &amp; \ddots &amp;\vdots \\<br>0 &amp; … &amp; \alpha_n(1-\alpha_n)\end{bmatrix}\end{matrix}$$</p>
 <p>And $\triangledown_wL(w)=A^T(\alpha-Y)$, $\alpha=[\alpha_1 … \alpha_n]^T$ and $Y=[y_1 … y_n]^T$<br>$$\frac{\partial^2}{\partial w_j \partial w_k}L(w)=\frac{\partial}{\partial w_k}\sum_{i=1}^{n}x_{ij}(\alpha_i-y_i)=\sum_{i=1}^{n}x_{ij}\frac{\partial}{\partial w_k}\alpha_i\\<br>\frac{\partial}{\partial w_k}\alpha_i = \frac{\partial}{\partial w_k}\frac{1}{1+e^{-w^Tx_i}}=\frac{x_{ik}e^{-w^Tx_i}}{(1+e^{-w^Tx_i})^2}=x_{ik}\alpha_i(1-\alpha_i)\\<br>\frac{\partial^2}{\partial w_j \partial w_k}L(w)=\sum_{i=1}^{n}x_{ij}x_{ik}\alpha_i(1-\alpha_i)=A^TBA$$<br>As $\triangledown_w^2L(w)=A^TBA=A^TB^{\frac{1}{2}}B^{\frac{1}{2}}A=(B^{\frac{1}{2}}A)^T(B^{\frac{1}{2}}A)$, the $\triangledown_w^2L(w)$ is positive definite and it should have a local minimum value. We can get the $w$ by iteration.</p>
@@ -339,7 +339,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;Logistic Regression is a kind of classifier. Unlike &lt;a href=&quot;/2017/01/03/Naive-Bayes/&quot; title=&quot;Naive Bayes&quot;&gt;Naive Bayes&lt;/a&gt;, it is based o
+      &lt;p&gt;Logistic Regression is a kind of classifier. Unlike &lt;a href=&quot;/2017/01/03/Naive-Bayes/&quot; title=&quot;Naive Bayes&quot;&gt;Naive Bayes&lt;/a&gt;, it is based on the discrimated model and use a sigmoid function $\sigma(x)=\frac{1}{1+e^{-x}}$ to deal with two classification problem.
     
     </summary>
     

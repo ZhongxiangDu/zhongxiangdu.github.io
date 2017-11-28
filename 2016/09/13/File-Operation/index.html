@@ -1,84 +1,95 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="google-site-verification" content="" />
   
-  <title>File Operation</title>
-  <meta name="author" content="Zhongxiang Du">
-   <meta name="description" content="This article mainly focuses on the create, read, write, close and delete operations on file in Linux 0.11. Here is only a brief view of the steps.">
+  <title>File Operation | Du&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="This article mainly focuses on the create, read, write, close and delete operations on file in Linux 0.11. Here is only a brief view of the steps.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="File Operation">
+<meta property="og:url" content="http://www.duzhongxiang.com/2016/09/13/File-Operation/index.html">
+<meta property="og:site_name" content="Du's Blog">
+<meta property="og:description" content="This article mainly focuses on the create, read, write, close and delete operations on file in Linux 0.11. Here is only a brief view of the steps.">
+<meta property="og:updated_time" content="2016-09-19T04:59:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="File Operation">
+<meta name="twitter:description" content="This article mainly focuses on the create, read, write, close and delete operations on file in Linux 0.11. Here is only a brief view of the steps.">
+  
+    <link rel="alternate" href="/atom.xml" title="Du&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
-  <meta property="og:title" content="File Operation"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:site_name" content="Du&#39;s Blog"/>
- <meta property="og:image" content="undefined"/>
-  
-  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
-  <link rel="alternate" href="/atom.xml" title="Du&#39;s Blog" type="application/atom+xml">
-  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/css/m.min.css">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id='wx_pic' style='display:none;'><img src='/wx_share.png'/></div>
-  <div id="main">
-    <div class="behind">
-      <div class="back">
-        <a href="/" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
-      </div>
-      <div class="description">
-        &nbsp;
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Du&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.duzhongxiang.com"></form>
       </div>
     </div>
-    <div class="container">
-      
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-File-Operation" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/13/File-Operation/" class="article-date">
+  <time datetime="2016-09-13T07:27:19.000Z" itemprop="datePublished">2016-09-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Operation-System/">Operation System</a>
+  </div>
 
-  <article class="standard post">
-    <div class="title">
-      
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 class="page-title center">
-        File Operation
+    <h1 class="article-title" itemprop="name">
+      File Operation
     </h1>
   
 
-
-    </div>
-    <div class="meta center">
-      
-<time datetime="2016-09-13T07:27:19.000Z">
-  <i class="fa fa-calendar"></i>&nbsp;
-  2016-09-13
-</time>
-
-
-
+      </header>
     
-    &nbsp;
-    <i class="fa fa-tag"></i>&nbsp;
-    <a href="/categories/Operation-System/">Operation System</a>
-
-
-
-
-    
-    &nbsp;
-    <i class="fa fa-tag"></i>&nbsp;
-    <a href="/tags/Linux/">Linux</a>·<a href="/tags/File-System/">File System</a>
-
-
-    </div>
-    <hr>
-    <div class="picture-container">
+    <div class="article-entry" itemprop="articleBody">
       
-    </div>
-    <p>This article mainly focuses on the create, read, write, close and delete operations on file in Linux 0.11. Here is only a brief view of the steps.<a id="more"></a> </p>
+        <p>This article mainly focuses on the create, read, write, close and delete operations on file in Linux 0.11. Here is only a brief view of the steps.<a id="more"></a> </p>
 <h2 id="Create-File"><a href="#Create-File" class="headerlink" title="Create File"></a>Create File</h2><p>In C Programing Language, by calling fopen() function we can open or create a file. The first parameter of fopen() is the path of the file. With this path, the system will start from the inode of the root or current directory. By looking into the i_zone in the inode, system will find the file inode or the inode of the file directory (when the file does not exist, which means we will create a file in this directory). Here we only talk about creating file.</p>
 <p>Firstly, we need to create a inode in the directory. We find an empty item on the inode list–inode_table[32]. The inode_table[32] denotes the currently being used files (in Linux 0.11, the whole system can only open st most 32 files at the same time). If there is no empty item in inode_table[32], the process will sleep to wait. Using the inode bitmap to find the unused inode number, if all the number have been used, return failed to create file. Binding the empty item in inode_table[32] with the inode and add file name and inode number to the i_zone of the directory inode. Note: here we have not write the file to the disk, we just write the file to the buffer block. Then the system bind the new inode with one unused item in filp[20] of the current process. In every process’s task structure, there is an array filp[20] denoting the files being opened by the process. In Linux each process can open at most 20 files at the same time. And the normal return value of fopen() is the index of the file in filp[20].</p>
 <h2 id="Read-Write-File"><a href="#Read-Write-File" class="headerlink" title="Read/Write File"></a>Read/Write File</h2><p>With the fd returned by the fopen(), we can find the inode of the file. And using the i_zone of the inode, we can find the block number of the disk. For reading operation, we directly read the data on the disk to the buffer block, and then copy this data to the buffer of the user process. For the writing operation, we write the data to the buffer block.</p>
@@ -97,108 +108,145 @@
 </ol>
 <p>In condition 1, the synchronization will be executed at order of 1,2. In condition 2, the synchronization will be executed at order of 2,1,2. Because step 1 will write data to the buffer block, but the system is running out of buffer at this time. So, it will clear the buffer first.</p>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.duzhongxiang.com/2016/09/13/File-Operation/" data-id="cjafoogjc000brftejeow91j5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/File-System/">File System</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
 
-  </article>
-  </script>
-    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-  </script>
+    </footer>
+  </div>
   
+    
+<nav id="article-nav">
+  
+    <a href="/2016/09/15/Minix-1-0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Minix 1.0
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/09/12/Fork-and-Execve/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Fork and Execve</div>
+    </a>
+  
+</nav>
 
+  
+</article>
 
-<div id="disqus_thread"></div>
-<script>
-
-var disqus_config = function () {
-this.page.url = 'http://www.duzhongxiang.com/2016/09/13/File-Operation/index.html';
-this.page.identifier = undefined;
-};
-
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
-
-s.src = '//www-duzhongxiang-com.disqus.com/embed.js';
-
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-
-
-
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Operation-System/">Operation System</a></li></ul>
     </div>
   </div>
-  <footer class="page-footer"><div class="clearfix">
-</div>
-<div class="right-foot container">
-    <div class="firstrow">
-        <a href="#top" >
-        <i class="fa fa-arrow-right"></i>
-        </a>
-        © Zhongxiang Du  2016-2017
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Classifier/">Classifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Vision/">Computer Vision</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Estimation/">Estimation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/File-System/">File System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GAN/">GAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Operation-System/">Operation System</a></li></ul>
     </div>
+  </div>
 
-</div>
-<div class="clearfix">
-</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Classifier/" style="font-size: 15px;">Classifier</a> <a href="/tags/Computer-Vision/" style="font-size: 10px;">Computer Vision</a> <a href="/tags/Deep-Learning/" style="font-size: 10px;">Deep Learning</a> <a href="/tags/Estimation/" style="font-size: 12.5px;">Estimation</a> <a href="/tags/File-System/" style="font-size: 12.5px;">File System</a> <a href="/tags/GAN/" style="font-size: 10px;">GAN</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Operation-System/" style="font-size: 17.5px;">Operation System</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/11/25/HummingDog/">HummingDog 3D Face Painter</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/06/SVM/">SVM</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/05/Softmax/">Softmax</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/04/Logistic-Regression/">Logistic Regression</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/03/Naive-Bayes/">Naive Bayes</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Zhongxiang Du<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
 </footer>
-  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
-<script src="/js/search.js"></script>
-<script type="text/javascript">
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
 
-// comments below to disable loading animation
-function revealOnScroll() {
-  var scrolled = $(window).scrollTop();
-  $(".excerpt, .index-title, .index-meta, p").each(function() {
-    var current = $(this),
-      height = $(window).outerHeight(),
-      offsetTop = current.offset().top;
-    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
-  });
-}
-$(window).on("scroll", revealOnScroll);
-$(document).ready(revealOnScroll)
-
-// disqus scripts
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-// dropdown scripts
-$(".dropdown").click(function(event) {
-  var current = $(this);
-  event.stopPropagation();
-  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
-});
-$(document).click(function(){
-    $(".dropdown-content").removeClass("open");
-})
-
-// back to top scripts
-$("a[href='#top']").click(function() {
-  $("html, body").animate({ scrollTop: 0 }, 500);
-  return false;
-});
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-var path = "/search.xml";
-searchFunc(path, 'local-search-input', 'local-search-result');
+<script src="/js/script.js"></script>
 
-</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

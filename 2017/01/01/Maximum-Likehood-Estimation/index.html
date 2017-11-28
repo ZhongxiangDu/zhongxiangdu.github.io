@@ -1,84 +1,95 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="google-site-verification" content="" />
   
-  <title>Maximum Likehood Estimation</title>
-  <meta name="author" content="Zhongxiang Du">
-   <meta name="description" content="Given $N$ independent and identically distributed (i.i.d) variables $X_1, X_2 …, X_N$ from a distribution $D$ with a parameter $\theta$, we can use a function $f$ to estimate $\theta$.">
+  <title>Maximum Likehood Estimation | Du&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Given $N$ independent and identically distributed (i.i.d) variables $X_1, X_2 …, X_N$ from a distribution $D$ with a parameter $\theta$, we can use a function $f$ to estimate $\theta$.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maximum Likehood Estimation">
+<meta property="og:url" content="http://www.duzhongxiang.com/2017/01/01/Maximum-Likehood-Estimation/index.html">
+<meta property="og:site_name" content="Du's Blog">
+<meta property="og:description" content="Given $N$ independent and identically distributed (i.i.d) variables $X_1, X_2 …, X_N$ from a distribution $D$ with a parameter $\theta$, we can use a function $f$ to estimate $\theta$.">
+<meta property="og:updated_time" content="2017-01-03T07:18:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Maximum Likehood Estimation">
+<meta name="twitter:description" content="Given $N$ independent and identically distributed (i.i.d) variables $X_1, X_2 …, X_N$ from a distribution $D$ with a parameter $\theta$, we can use a function $f$ to estimate $\theta$.">
+  
+    <link rel="alternate" href="/atom.xml" title="Du&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
-  <meta property="og:title" content="Maximum Likehood Estimation"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:site_name" content="Du&#39;s Blog"/>
- <meta property="og:image" content="undefined"/>
-  
-  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
-  <link rel="alternate" href="/atom.xml" title="Du&#39;s Blog" type="application/atom+xml">
-  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/css/m.min.css">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id='wx_pic' style='display:none;'><img src='/wx_share.png'/></div>
-  <div id="main">
-    <div class="behind">
-      <div class="back">
-        <a href="/" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
-      </div>
-      <div class="description">
-        &nbsp;
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Du&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.duzhongxiang.com"></form>
       </div>
     </div>
-    <div class="container">
-      
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Maximum-Likehood-Estimation" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/01/01/Maximum-Likehood-Estimation/" class="article-date">
+  <time datetime="2017-01-02T00:38:16.000Z" itemprop="datePublished">2017-01-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+  </div>
 
-  <article class="standard post">
-    <div class="title">
-      
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 class="page-title center">
-        Maximum Likehood Estimation
+    <h1 class="article-title" itemprop="name">
+      Maximum Likehood Estimation
     </h1>
   
 
-
-    </div>
-    <div class="meta center">
-      
-<time datetime="2017-01-02T00:38:16.000Z">
-  <i class="fa fa-calendar"></i>&nbsp;
-  2017-01-01
-</time>
-
-
-
+      </header>
     
-    &nbsp;
-    <i class="fa fa-tag"></i>&nbsp;
-    <a href="/categories/Machine-Learning/">Machine Learning</a>
-
-
-
-
-    
-    &nbsp;
-    <i class="fa fa-tag"></i>&nbsp;
-    <a href="/tags/Estimation/">Estimation</a>
-
-
-    </div>
-    <hr>
-    <div class="picture-container">
+    <div class="article-entry" itemprop="articleBody">
       
-    </div>
-    <p>Given $N$ independent and identically distributed (i.i.d) variables $X_1, X_2 …, X_N$ from a distribution $D$ with a parameter $\theta$, we can use a function $f$ to estimate $\theta$. <a id="more"></a></p>
+        <p>Given $N$ independent and identically distributed (i.i.d) variables $X_1, X_2 …, X_N$ from a distribution $D$ with a parameter $\theta$, we can use a function $f$ to estimate $\theta$. <a id="more"></a></p>
 <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>The joint density function is $f(X_1, X_2 … X_N |\theta) = f(X_1|\theta)f(X_2|\theta)…f(X_N|\theta)$. We need to find a $\theta$ to maximum the logistic joint function $L_N(\theta)= \log f(X_1, X_2 … X_N |\theta) = \frac{1}{N}\sum_{i=1}^{N}\log f(X_i|\theta)$. </p>
 <p>Assume $\hat{\theta}$ is the value of $\theta$ that maximize $L_N(\theta)$ and $\theta_0$ is the ture value of the parameter $\theta$ there are:</p>
 <ol>
@@ -97,91 +108,146 @@
 <p>$$D_{\theta_0}(l’(X|\theta) = E_{\theta_0}[l’(X|\theta)]^2 - E_{\theta_0}^2[l’(X|\theta)] = I(\theta_0)$$</p>
 <p>So we can have $\sqrt{N}(\hat{\theta}-\theta_0) \sim N(0, I(\theta_0)^{-1})$.</p>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.duzhongxiang.com/2017/01/01/Maximum-Likehood-Estimation/" data-id="cjafoogkx001nrfteop892529" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Estimation/">Estimation</a></li></ul>
 
-  </article>
-  </script>
-    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-  </script>
+    </footer>
+  </div>
   
+    
+<nav id="article-nav">
+  
+    <a href="/2017/01/02/Bayes-Estimation/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Bayes Estimation
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/09/19/Linux-Start-Part-II/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Linux Start Part II</div>
+    </a>
+  
+</nav>
 
+  
+</article>
 
-<div id="disqus_thread"></div>
-<script>
-
-var disqus_config = function () {
-this.page.url = 'http://www.duzhongxiang.com/2017/01/01/Maximum-Likehood-Estimation/index.html';
-this.page.identifier = undefined;
-};
-
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
-
-s.src = '//www-duzhongxiang-com.disqus.com/embed.js';
-
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-
-
-
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Operation-System/">Operation System</a></li></ul>
     </div>
   </div>
-  <footer class="page-footer"><div class="clearfix">
-</div>
-<div class="right-foot container">
-    <div class="firstrow">
-        <a href="#top" >
-        <i class="fa fa-arrow-right"></i>
-        </a>
-        © Zhongxiang Du  2016-2017
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Classifier/">Classifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Vision/">Computer Vision</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Estimation/">Estimation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/File-System/">File System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GAN/">GAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Operation-System/">Operation System</a></li></ul>
     </div>
+  </div>
 
-</div>
-<div class="clearfix">
-</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Classifier/" style="font-size: 15px;">Classifier</a> <a href="/tags/Computer-Vision/" style="font-size: 10px;">Computer Vision</a> <a href="/tags/Deep-Learning/" style="font-size: 10px;">Deep Learning</a> <a href="/tags/Estimation/" style="font-size: 12.5px;">Estimation</a> <a href="/tags/File-System/" style="font-size: 12.5px;">File System</a> <a href="/tags/GAN/" style="font-size: 10px;">GAN</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Operation-System/" style="font-size: 17.5px;">Operation System</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/11/25/HummingDog/">HummingDog 3D Face Painter</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/06/SVM/">SVM</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/05/Softmax/">Softmax</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/04/Logistic-Regression/">Logistic Regression</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/03/Naive-Bayes/">Naive Bayes</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Zhongxiang Du<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
 </footer>
-  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
-<script src="/js/search.js"></script>
-<script type="text/javascript">
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
 
-// comments below to disable loading animation
-function revealOnScroll() {
-  var scrolled = $(window).scrollTop();
-  $(".excerpt, .index-title, .index-meta, p").each(function() {
-    var current = $(this),
-      height = $(window).outerHeight(),
-      offsetTop = current.offset().top;
-    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
-  });
-}
-$(window).on("scroll", revealOnScroll);
-$(document).ready(revealOnScroll)
-
-// disqus scripts
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-// dropdown scripts
-$(".dropdown").click(function(event) {
-  var current = $(this);
-  event.stopPropagation();
-  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
-});
-$(document).click(function(){
-    $(".dropdown-content").removeClass("open");
-})
-
-// back to top scripts
-$("a[href='#top']").click(function() {
-  $("html, body").animate({ scrollTop: 0 }, 500);
-  return false;
-});
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-var path = "/search.xml";
-searchFunc(path, 'local-search-input', 'local-search-result');
+<script src="/js/script.js"></script>
 
-</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
@@ -199,6 +265,5 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
-
 </body>
 </html>
