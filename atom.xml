@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.duzhongxiang.com/"/>
-  <updated>2017-11-28T02:40:11.534Z</updated>
+  <updated>2017-11-28T03:18:40.366Z</updated>
   <id>http://www.duzhongxiang.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.duzhongxiang.com/2017/11/25/HummingDog/"/>
     <id>http://www.duzhongxiang.com/2017/11/25/HummingDog/</id>
     <published>2017-11-25T18:04:19.000Z</published>
-    <updated>2017-11-28T02:40:11.534Z</updated>
+    <updated>2017-11-28T03:18:40.366Z</updated>
     
     <content type="html"><![CDATA[<h2 id="1-Project-Introduction"><a href="#1-Project-Introduction" class="headerlink" title="1 Project Introduction"></a>1 Project Introduction</h2><p>This project is about building a system to translate a hand sketched human face into a 3D face model. The main problem about this system is Building a model to learn the outline pattern of human face and applying GAN to the generated face more real.<a id="more"></a><br>We have tried two methods in this project. One is a two step model, generating the RGB face and 3D face in two steps. The other is an End-to-End Pix2RGBD model, which tries to combine the two models together and generate 3D model directly from the hand skecthed image.</p>
 <h2 id="2-Two-Step-Model"><a href="#2-Two-Step-Model" class="headerlink" title="2 Two Step Model"></a>2 Two Step Model</h2><p>The Two Step Model is a concatenation of two models. They are Pix2Pix Model and 3D Generation Model.</p>
@@ -118,8 +118,8 @@
 <thead>
 <tr>
 <th style="text-align:center">Sketch</th>
-<th style="text-align:center">RGB Groung Truth</th>
-<th style="text-align:center">3D Groung Truth</th>
+<th style="text-align:center">RGB Ground Truth</th>
+<th style="text-align:center">3D Ground Truth</th>
 <th style="text-align:center">Generated RGB</th>
 <th style="text-align:center">Generated 3D</th>
 </tr>
@@ -209,8 +209,8 @@
 <thead>
 <tr>
 <th style="text-align:center">Sketch</th>
-<th style="text-align:center">RGB Groung Truth</th>
-<th style="text-align:center">RGBD Groung Truth</th>
+<th style="text-align:center">RGB Ground Truth</th>
+<th style="text-align:center">RGBD Ground Truth</th>
 <th style="text-align:center">Generated RGB</th>
 <th style="text-align:center">Generated RGBD</th>
 </tr>
