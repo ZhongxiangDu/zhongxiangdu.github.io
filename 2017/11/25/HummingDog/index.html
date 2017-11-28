@@ -1,0 +1,420 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>HummingDog 3D Face Painter</title>
+  <meta name="author" content="Zhongxiang Du">
+   <meta name="description" content="1 Project IntroductionThis project is about building a system to translate a hand sketched human face into a 3D face model. The main problem about thi">
+  
+
+  <meta property="og:title" content="HummingDog 3D Face Painter"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Du&#39;s Blog"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Du&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id='wx_pic' style='display:none;'><img src='/wx_share.png'/></div>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="/" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        HummingDog 3D Face Painter
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-11-25T18:04:19.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2017-11-25
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/Machine-Learning/">Machine Learning</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/Deep-Learning/">Deep Learning</a>·<a href="/tags/GAN/">GAN</a>·<a href="/tags/Computer-Vision/">Computer Vision</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="1-Project-Introduction"><a href="#1-Project-Introduction" class="headerlink" title="1 Project Introduction"></a>1 Project Introduction</h2><p>This project is about building a system to translate a hand sketched human face into a 3D face model. The main problem about this system is Building a model to learn the outline pattern of human face and applying GAN to the generated face more real.<br>We have tried two methods in this project. One is a two step model, generating the RGB face and 3D face in two steps. The other is an End-to-End Pix2RGBD model, which tries to combine the two models together and generate 3D model directly from the hand skecthed image.</p>
+<h2 id="2-Two-Step-Model"><a href="#2-Two-Step-Model" class="headerlink" title="2 Two Step Model"></a>2 Two Step Model</h2><p>The Two Step Model is a concatenation of two models. They are Pix2Pix Model and 3D Generation Model.</p>
+<h3 id="2-1-Pix2Pix-Model-Introduction"><a href="#2-1-Pix2Pix-Model-Introduction" class="headerlink" title="2.1 Pix2Pix Model Introduction"></a>2.1 Pix2Pix Model Introduction</h3><p>This model was published in [1], which aims to translate an image into another image. In this project, we take advantage of this model to translate our hand sketched human face into a colored RGB human face.</p>
+<h4 id="2-1-1-Network-Structure-and-Loss-Function"><a href="#2-1-1-Network-Structure-and-Loss-Function" class="headerlink" title="2.1.1 Network Structure and Loss Function"></a>2.1.1 Network Structure and Loss Function</h4><p>We apply a similar network structure descibled in [1], but we have changed some hyper parameters to make this model more suitable for our system. The GAN is applied in this model. The structure of generator part is shown below.<br><img align="center" src="/images/pix2pix.jpg"><br>The input is an image with size 192*192, which only contains two kind of values (0, 255). The generator will generate a 192*192 colored image with three channels. The structure of the discriminator is shown below. The 192*192*4 input tensor is a concatenation of a hand skectched image and its corresponding RGB image. The discriminator will decide whether the RGB image is real or fake.<br><img align="center" src="/images/discriminator.jpg" width="50%" height="50%"><br>The loss function of our model is<br>$$L_{GAN}=\mathbb{E}_{y\sim p_{data}(y)}[\log D(y)]+\mathbb{E}_{x\sim p_{data}(x),z\sim p_{z}(z)}[1 - \log D(G(x))]\\<br>L= arg~\underset{G}{min}~\underset{D}{max}~L_{GAN} +\lambda \mathbb{E} \left \| y-G(x)) \right \|_1$$<br>x is the input hand sketched image; y is the ground truth; D and G are the generator and discriminator.</p>
+<h4 id="2-1-2-Training-Data"><a href="#2-1-2-Training-Data" class="headerlink" title="2.1.2 Training Data"></a>2.1.2 Training Data</h4><p>In this project, we use the data from CelebA[3]. It contains 202,599 aligned face images. Since limited calculation resources, we only select the first 10,000 images. Buy applying the Canny and Sobel edge detection algorithm to generate the sketched images. So we can have a dataset with 20,000 pairs of training images. Here are some samples from our dataset. </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Image</th>
+<th style="text-align:center">Canny</th>
+<th style="text-align:center">Sobel</th>
+<th style="text-align:center">Image</th>
+<th style="text-align:center">Canny</th>
+<th style="text-align:center">Sobel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/image/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/canny/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/canny/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000009.jpg"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/image/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/canny/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/canny/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000012.jpg"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/image/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/canny/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000025.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/canny/000025.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000025.jpg"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-1-3-Result"><a href="#2-1-3-Result" class="headerlink" title="2.1.3 Result"></a>2.1.3 Result</h4><p>The table below illustrate some of the generated RGB face and it ground truth.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Sketch</th>
+<th style="text-align:center">Ground Truth</th>
+<th style="text-align:center">Generated Face</th>
+<th style="text-align:center">Sketch</th>
+<th style="text-align:center">Ground Truth</th>
+<th style="text-align:center">Generated Face</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/sobel/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/pix2pix/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/pix2pix/000009.jpg"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/sobel/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/pix2pix/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/pix2pix/000012.jpg"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/sobel/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/pix2pix/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/sobel/000025.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000025.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/pix2pix/000025.jpg"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-2-3D-Generation-Model"><a href="#2-2-3D-Generation-Model" class="headerlink" title="2.2 3D Generation Model"></a>2.2 3D Generation Model</h3><p>The 3D Generation Model aims to translate the colored face image into a 3D model. Here, we use the idea from [2]. In [2], the author rasied a Volume Regression Network (VRN) to generate a 192*192*200 volume to demonstrate the outline of a human face.</p>
+<h4 id="2-2-1-Loss-Function"><a href="#2-2-1-Loss-Function" class="headerlink" title="2.2.1 Loss Function"></a>2.2.1 Loss Function</h4><p>From the name of this network (Volume Regression Network), we can simply guess the loss function should be cross-entropy. The loss function of this network is<br>$$L=\sum_{w,h,d}[V_{whd}\log \widehat{V_{whd}}+(1-V_{whd})\log (1-\widehat{V_{whd}})]$$<br>Here $V_{whd}$ is the output of the VRN, $\widehat{V_{whd}}$ is the ground truth. We can find that the VRN is quite straightforward method to get the 3D mesh of a human face.</p>
+<h4 id="2-2-2-Volume-Regression-Network-Structure"><a href="#2-2-2-Volume-Regression-Network-Structure" class="headerlink" title="2.2.2 Volume Regression Network Structure"></a>2.2.2 Volume Regression Network Structure</h4><p>The VRN is much more complicated than the Pix2Pix model, so we can not draw all the details here. Similar to the Pix2Pix Network, the VRN also applies some skip architecture to maintain the information from previous layers. The VRN contains two hourglass network [5]. The image below illustrate the structure of the VRN.<br><img align="center" src="/images/vrn.jpg"></p>
+<p>The output of this network is a 192*192*200 tensor, which is extremely sparse and we only take advantages of the elements larger than 1. These elements form a outline of the human face. By setting this elements as the corresponding RGB value from the RGB image, we can visualize the final 3D model. This are some examples about the 3D model generated from the RGB images.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Sketch</th>
+<th style="text-align:center">RGB Groung Truth</th>
+<th style="text-align:center">3D Groung Truth</th>
+<th style="text-align:center">Generated RGB</th>
+<th style="text-align:center">Generated 3D</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/sobel/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dreal/000002.jpg" width="50%" height="50%"></td>
+<td style="text-align:center"><img align="center" src="/images/pix2pix/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dfake/000002.jpg" width="50%" height="50%"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/sobel/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dreal/000009.jpg" width="50%" height="50%"></td>
+<td style="text-align:center"><img align="center" src="/images/pix2pix/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dfake/000009.jpg" width="50%" height="50%"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/sobel/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dreal/000010.jpg" width="50%" height="50%"></td>
+<td style="text-align:center"><img align="center" src="/images/pix2pix/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dfake/000010.jpg" width="50%" height="50%"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/sobel/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dreal/000012.jpg" width="50%" height="50%"></td>
+<td style="text-align:center"><img align="center" src="/images/pix2pix/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dfake/000012.jpg" width="50%" height="50%"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/sobel/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dreal/000017.jpg" width="50%" height="50%"></td>
+<td style="text-align:center"><img align="center" src="/images/pix2pix/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dfake/000017.jpg" width="50%" height="50%"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-3-Workflow"><a href="#2-3-Workflow" class="headerlink" title="2.3 Workflow"></a>2.3 Workflow</h3><p>The image below demonstrate the work flow of this method.<br><img align="center" src="/images/workflow.jpg"></p>
+<h2 id="3-RGBD-Model"><a href="#3-RGBD-Model" class="headerlink" title="3 RGBD Model"></a>3 RGBD Model</h2><p>In this project we also try another method to do an end-to-end training, which takes advantages of the Pix2Pix Network to get the final 3D model in one network.</p>
+<h3 id="3-1-Motivations"><a href="#3-1-Motivations" class="headerlink" title="3.1 Motivations"></a>3.1 Motivations</h3><p>The output of the VRN is a 192*192*200 volume, which contains a great number of parameters. Just forcing the Pix2Pix Network to generate the 3D volume, we can not get a reasonable output.<br>By observing the 3D volume generated by VRN, we can find that a lot of elements are zero. To achieve a similar effect, we translate the 192*192*200 volume in to a 192*192 image with only one channel. We call it depth channel. Concatenate the depth channel with the RGB channel, we can generate a 192*192*4 RGBD image, which contains only a few parameters to learn.</p>
+<h3 id="3-2-Training-Data"><a href="#3-2-Training-Data" class="headerlink" title="3.2 Training Data"></a>3.2 Training Data</h3><p>We apply the VRN on the images in our dataset and get 10,000 RGBD images. The table below displays some samples about the RGBD images. From the samples we can find that with only RGBD information, we can also revcover a reasonable human face, even though the 3D model might be a little weird.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">RGB</th>
+<th style="text-align:center">Depth</th>
+<th style="text-align:center">RGBD</th>
+<th style="text-align:center">RGB</th>
+<th style="text-align:center">Depth</th>
+<th style="text-align:center">RGBD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/image/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000009.jpg"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/image/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000012.jpg"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/image/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000025.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/d/000025.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000025.jpg"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-3-Output-sample-and-Analysis"><a href="#3-3-Output-sample-and-Analysis" class="headerlink" title="3.3 Output sample and Analysis"></a>3.3 Output sample and Analysis</h3><p>We use a similar Pix2Pix Network structure here. The only difference is that the output is 192*192*4 with an extra channel denoting the depth. Here are some examples of the output.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Sketch</th>
+<th style="text-align:center">RGB Groung Truth</th>
+<th style="text-align:center">RGBD Groung Truth</th>
+<th style="text-align:center">Generated RGB</th>
+<th style="text-align:center">Generated RGBD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/sobel/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgb_fake/000002.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgbd/000002.jpg"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/sobel/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgb_fake/000009.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgbd/000009.jpg"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/sobel/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgb_fake/000010.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgbd/000010.jpg"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/sobel/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgb_fake/000012.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgbd/000012.jpg"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img align="center" src="/images/sobel/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/image/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/3dd/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgb_fake/000017.jpg"></td>
+<td style="text-align:center"><img align="center" src="/images/rgbd/000017.jpg"></td>
+</tr>
+</tbody>
+</table>
+<p>Notice that this model can also output a reasonable result. In some cases, it can even outperform the two steps method, with much less calculation, since the VRN is an extremely large network with millions of parameters.</p>
+<h2 id="4-Implementation"><a href="#4-Implementation" class="headerlink" title="4. Implementation"></a>4. Implementation</h2><p>In this part, we will talk about the implementation of this system. This system contains four parts. Web front end, Pix2Pix Server, VRN Server and Pix2RGBD Server. Since loading the model into memory takes a long time, we encapsulate the two models as two individual service and load the model into memory. Only do the inference when there is a request.</p>
+<h3 id="4-1-Framework"><a href="#4-1-Framework" class="headerlink" title="4.1 Framework"></a>4.1 Framework</h3><p>In this part, we will have a whole view about the implemention of this project. The image below illustrate the module decomposition. The message between different modules are implemented by socket.<br><img align="center" src="/images/framework.jpg" width="80%" height="80%"></p>
+<h3 id="4-2-Module-Introductions"><a href="#4-2-Module-Introductions" class="headerlink" title="4.2 Module Introductions"></a>4.2 Module Introductions</h3><h4 id="4-2-1-Web-Front-End"><a href="#4-2-1-Web-Front-End" class="headerlink" title="4.2.1 Web Front End"></a>4.2.1 Web Front End</h4><p>The web front end aims to handle the human interaction and display the RGB image and 3D model to the user. It will send the human sketched image to the Pix2Pix Sever and receive the generated RGB image and 3D model.</p>
+<h4 id="4-2-2-Pix2Pix-Server"><a href="#4-2-2-Pix2Pix-Server" class="headerlink" title="4.2.2 Pix2Pix Server"></a>4.2.2 Pix2Pix Server</h4><p>The Pix2Pix Server will translate the hand sketched image into a RGB image then it will send this image to the VRN Server and get the 3D model. Finally, it will send the generated RGB image and 3D model to the Web Front End.</p>
+<h4 id="4-2-3-VRN-Server"><a href="#4-2-3-VRN-Server" class="headerlink" title="4.2.3 VRN Server"></a>4.2.3 VRN Server</h4><p>The VRN Server aims to translate the RGB image, recevived from Pix2Pix Server, into a 3D model and send this 3D model to Pix2Pix Server.</p>
+<h4 id="4-2-3-Pix2RGBD-Server"><a href="#4-2-3-Pix2RGBD-Server" class="headerlink" title="4.2.3 Pix2RGBD Server"></a>4.2.3 Pix2RGBD Server</h4><p>The Pix2RGBD Server aims to translate the hand sketched image, recevived Web Front End, into a 3D model directly and send this 3D model to the Web Front End.</p>
+<h2 id="5-Conclusion"><a href="#5-Conclusion" class="headerlink" title="5. Conclusion"></a>5. Conclusion</h2><p>In this project, we successfully build a system to translate the human skteched human face into a 3D model. We have tried two different approaches, one is a combination of Pix2Pix and VRN, the other one is an Pix2RGBD model. It turns out the Pix2RGBD model can also output a resenable result with less calculation. We have also developped a web demo for this project.</p>
+<h2 id="6-Reference"><a href="#6-Reference" class="headerlink" title="6. Reference"></a>6. Reference</h2><p>[1] Isola, Phillip, et al. “Image-to-image translation with conditional adversarial networks.” CVPR. 2017.<br>[2] Jackson, Aaron S., et al. “Large Pose 3D Face Reconstruction from a Single Image via Direct Volumetric CNN Regression.” ICCV. 2017.<br>[3] Liu, Ziwei, et al. “Deep learning face attributes in the wild.” ICCV. 2015.<br>[4] Zhu, Xiangyu, et al. “Face alignment across large poses: A 3d solution.” CVPR. 2016.<br>[5] Newell, Alejandro, et al. “Stacked hourglass networks for human pose estimation.” ECCV. 2016.</p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  
+
+
+<div id="disqus_thread"></div>
+<script>
+
+var disqus_config = function () {
+this.page.url = 'http://www.duzhongxiang.com/2017/11/25/HummingDog/index.html';
+this.page.identifier = undefined;
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//www-duzhongxiang-com.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        © Zhongxiang Du  2016-2017
+    </div>
+
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+</body>
+</html>
